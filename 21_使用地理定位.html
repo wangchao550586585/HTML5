@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+</head>
+<body>
+	<button id="stop">stop</button>
+	<script type="text/javascript">
+		/* 控制部分位置信息的获取的方式
+		PositionOptions对象：getCurrentPosition方法第三个参数提供的对象
+			enableHighAccuracy:告诉浏览器我们希望得到的结果
+			timeout:限制请求位置的时间，超过设置时间报超时错误
+			maximumAge:告诉浏览器我们愿意接受缓存过的位置，只要他不早于指定的毫秒数
+		 */
+		/* 不要求获得最高级的精度，并准备在请求超时前等待2秒，愿意接受缓存了不超过30秒的数据 */
+		var options = {
+			enableHighAccuracy : false,
+			timeout : 2000,
+			maximumAge : 30000
+		};
+
+		/* navigator.geolocation：访问地理定位功能
+		此对象方法如下
+			getCurrentPosition(callback,errorCallback,options):获取当前位置
+			watchPosition(callback,error,options):开始监控当前位置
+			clearWatch(id):停止监控当前位置
+		 */
+		navigator.geolocation.getCurrentPosition(displayPosition, handleError,
+				options);
+
+		/* 
+		获取地理信息
+		position对象属性:getCurrentPosition方法第一个参数提供的对象
+			coords:返回当前位置的坐标
+				longitude /latitude：返回十进制经纬度
+				altitude:返回海拔高度，单位米
+				accuracy:返回坐标精度，单位米
+				altitudeAccuracy:海拔精度，米
+				heading：行进方向，单位度
+				speed：用米/秒表示行进速度
+			timestamp:返回获取坐标信息的时间 
+		 */
+		function displayPosition(pos) {
+			var properties = [ "longitude", "latitude", "altitude", "accuracy",
+					"altitudeAccuracy", "heading", "speed" ];
+			for (var i = 0; i < properties.length; i++) {
+				document.writeln(pos.coords[properties[i]] + "<br/>");
+			}
+			document.writeln(pos.timestamp + "<br/>");
+		}
+
+		/* 	
+		获取异常信息
+		positionError:getCurrentPosition方法第二个参数提供的对象
+			code：错误类型代码
+				1:用户未授权使用地理定位功能
+				2:不能确定位置
+				3:请求位置的尝试超时
+			message:错误字符串 
+		 */
+		function handleError(err) {
+			document.writeln(err.code + "<br/>");
+			document.writeln(err.message + "<br/>");
+		}
+
+		//################监控位置,跟getCurrentPosition唯一区别在于，随着位置改变，回调函数会被反复调用 ,也可以使用定时器代替
+		var watchID = navigator.geolocation.watchPosition(displayPosition,
+				handleError, options);
+
+		document.querySelector("#stop").onclick = function() {
+			navigator.geolocation.clearWatch(watchID);
+		}
+	</script>
+
+
+
+
+</body>
+</html>

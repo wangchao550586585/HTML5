@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSS选择器</title>
+<style type="text/css">
+
+/* #####################基本选择器 */
+/* 1：通用选择器,会匹配文档所有元素  */
+* {
+	border: thin black solid;
+	padding: 15px;
+}
+
+/* 2：元素类型选择器,选取文档所有该元素的实例 */
+a {
+	border: thin red solid;
+}
+
+/* 3:类选择器 ,(*.class2)和 (.class2)2种形式，等价*/
+*.class2 {
+	color: gray;
+}
+/* 使用类选择器匹配单一元素 ,多个类选择器用.隔开，如(span.class3.class2)*/
+span.class3 {
+	color: navy;
+}
+
+/* 4:id选择器 */
+#ids {
+	color: red;
+}
+
+/* 5：属性选择器,匹配所有具有属性的元素 
+[attr]:忽略属性值
+[attr="val"]:规定属性值
+[attr^="val"]:属性值以val开头
+[attr$="val"]:属性值以val结尾
+[attr*="val"]:属性值包含字符串val的元素
+[attr~="val"]:属性值具有多个值，其中一个为字符串val的元素。
+[attr|="val"]:属性值为连字符串(就是中线 -)分割的多个值，其中第一个为字符串val的元素
+*/
+[href] {
+	color: blue;
+}
+
+[class~="class5"] {
+	border-color: blue;
+}
+
+[lang|="en"] {
+	border-color: red;
+}
+
+/* ##################################复合选择器 */
+/* 1:并行选择器，混搭任意元素，匹配则修改 。可不添加逗号*/
+a, [lang="en"] {
+	color: gray;
+}
+/* 2:后代选择器：匹配任意包含在匹配第一个选择器的元素中的元素 */
+p span {
+	color: gray;
+}
+
+#othertable td {
+	color: gray;
+}
+/* 3:子代选择器：只选择匹配元素中的直接后代 */
+body>*>span, tr>th {
+	color: red;
+}
+/* 4:相邻兄弟选择器 */
+table+a {
+	color: blue;
+}
+/* 5:普通兄弟选择器:匹配指定的元素之后，不一定相邻 */
+table ~ b {
+	color: blue;
+}
+/* ########伪元素选择器 ,伪元素和伪类 ########### */
+/* 伪元素前缀为2个冒号(::)，浏览器解析为只有一个冒号，向后兼容 */
+/* 1:匹配文本块的首行，可以和其他匹配器一起使用 */
+::first-line {
+	color: red;
+}
+/* 2:选择文本块的首字母 */
+::first-letter {
+	color: green;
+}
+/* 3:  :before OR :after :在选中元素的内容，之前插入内容(之前插入内容) */
+a:AFTER {
+	content: "后面插入";
+}
+
+a:BEFORE {
+	content: "前面插入";
+}
+/* ######################使用css计数器特性 */
+/*  定义计时器名字，也可以设置初始值如:paracount 10，也可以设置多个计数器如：paracount 10 other; */
+body {
+	counter-reset: paracount;
+}
+
+/* 计数器默认为10进制整数，可以设置为其他数值格式，如： counter(paracount,lower-alpha);
+此值可以为list-style-type属性支持的任意值  */
+p:BEFORE {
+	content: counter(paracount) ".";
+	counter-increment: paracount 2; /* 增量默认为1 */
+}
+
+
+/* 结构性伪类选择器，都有一个冒号作为前缀。可跟其他元素组合使用 */
+/* 根元素选择器：选择文档中的根元素，总是返回html */
+:root {
+	border: solid;
+}
+
+/* 子元素选择器
+:first-child:选择元素中的[第一个] 子元素
+:last-child:选择元素中的[最后一个子] 元素
+:only-child:选择元素中的[唯一] 子元素
+:only-of-type:选择元素[指定类型的唯一] 子元素 
+ */
+:first-child {
+	color: red;
+}
+
+:last-child {
+	color: blue;
+}
+
+:only-child {
+	color: gray;
+}
+
+:only-of-type {
+	color: green;
+}
+
+/* 
+:nth-child(n):选择父元素的第N个子元素
+:nth-last-child(n)：选择父元素的倒数第N个子元素
+:nth-of-type(n)：选择父元素定义类型的第N个子元素
+:nth-last-of-type(n):选择父元素定义类型的倒数第N个子元素 */
+body>:nth-child(1) {
+	color: blue;
+}
+
+/* UI伪类选择器
+:enabled /:disabled :匹配没禁用(禁用)的
+:checked：选中有check属性，或者用户勾选的单选or复选框 
+:default:从一组类似的元素中选择默认元素 ，例如提交按钮总是表单的默认按钮
+:valid/:invalid  匹配符合和不符合输入验证要求的input元素
+:in:range/:out-of-range  匹配位于指定范围内(外)的input元素
+:required / :optional 匹配具有 or 没有 required属性的input元素
+ */
+:enabled {
+	color: red;
+}
+
+:disabled {
+	color: gray;
+}
+
+:checked+span {
+	color: gray;
+}
+
+:default {
+	outline: medium solid red;
+}
+
+:valid {
+	outline: medium solid red;
+}
+
+:invalid {
+	outline: medium solid green;
+}
+
+:in-range {
+	outline: medium solid green;
+}
+
+:out-of-range {
+	outline: medium solid red;
+}
+
+:required {
+	outline: medium solid green;
+}
+
+:optional {
+	outline: medium solid red;
+}
+
+/* 动态伪类选择器:根据条件的改变匹配元素,相对文档的固定状态而言
+:link	   匹配超链接，
+:visited 匹配用户已访问的超链接
+:hover   匹配用户鼠标悬停在其上的任意元素
+:active  匹配当前用户激活的元素。如用户即将点击or按压元素，鼠标按在上面的任意元素都会被选中
+:focus   匹配当前获得焦点的元素
+ */
+:link {
+	border: thin black solid;
+	color: red;
+	background-color: lightgrey;
+}
+
+:VISITED {
+	background-color: grey;
+	color: white;
+}
+
+:hover {
+	color: green;
+}
+
+:ACTIVE {
+	color: blue;
+}
+
+:focus {
+	color: white;
+}
+/* 
+其他伪类选择器
+:not(<选择器>) 否定选择器，对括号内的选择器取反 
+:empty  匹配没有定义任何子元素的元素
+:lang   匹配基于lang全局属性值的元素
+:target 匹配url片段标识符指向的元素,
+		例如使用：file:///E:/workspace/HTML5/src/3_css.html#w3c
+		可以匹配id为w3c的元素。同时更改其target指定的样式
+*/
+/* 匹配子元素没有包含apress字符串的href元素的所有a元素 */
+a:not ([href*="apress"] ){
+	color: aqua;
+}
+
+:empty {
+	color: aqua;
+}
+:lang(en){
+color:  red;
+}
+:target{
+color: aqua;
+}
+</style>
+</head>
+<body>
+	<span>啊哈哈</span>
+	<a class="class2" id="ids">哈哈 哈哈 恩恩</a>
+	<p>
+		<span class="class3">呵呵</span> <span>不要这样</span>
+	</p>
+	<span>不要呵呵</span>
+	<a href="http://www.baidu.com" target="_black"> 哈哈</a>
+	<a href="http://www.baidu.com" class="class2 class5" target="_black">哈哈2</a>
+	<a href="http://www.baidu.com" class="class5">哈哈3</a>
+
+	<span lang="en-gb">呵呵</span>
+	<span lang="en">呵呵</span>
+
+	<table id="othertable">
+		<tr>
+			<th>啊哈</th>
+		</tr>
+		<tr>
+			<td>哈哈</td>
+		</tr>
+		<tr>
+			<td>呵呵</td>
+		</tr>
+		<tr>
+			<td>有病啊</td>
+		</tr>
+	</table>
+	<a>相邻兄弟元素</a>
+	<b>哈哈</b>
+
+
+	<p>can you speak English？注释标签用于在源代码中插入注释。注释不会显示在浏览器中。
+		您可使用注释对您的代码进行解释，这样做有助于您在以后的时间对代码的编辑。当您编写了大量代码时尤其有用。
+		使用注释标签来隐藏浏览器不支持的脚本也是一个好习惯（这样就不会把脚本显示为纯文本）：</p>
+	<p>
+		注释标签用于在源代码中插入注释。<span>注释不会显示在浏览器中</span> <span>哈哈</span>
+	</p>
+	<p>
+		注释标签用于在源代码中插入注释。<span>注释不会显示在浏览器中</span> 哈哈
+	</p>
+
+
+	<textarea>哈哈</textarea>
+	<textarea disabled="disabled">哈哈</textarea>
+
+	<input type="checkbox" checked="checked" />
+	<span>啊哈哈</span>
+
+	<form action="">
+		<input required="required" />
+		<button>哈哈</button>
+	</form>
+
+	<input type="number" min="0" max="100" value="1" />
+	<span lang="en">哈哈</span>
+	
+	<a id="w3c" href="http://wwww.baidu.com">哈哈</a>
+	
+	
+	
+	
+	
+	
+</body>
+</html>

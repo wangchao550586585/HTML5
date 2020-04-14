@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html manifest="fruit.appcache">
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+</head>
+<body>
+	<img id="imgtarget" src="ceUqkmMnRz4g.png" />
+	<button id="img1">img1</button>
+	<button id="img2">img2</button>
+	<button id="img3">img3</button>
+	<br />
+	<button id="update">update</button>
+	<button id="swap">swap</button>
+	状态:
+	<span id="status"></span>
+	<span id="msg"></span>
+	<script type="text/javascript">
+		/* 离线应用程序缓存功能允许我们指定web应用程序所需的全部资源，
+		这样浏览器就能加载HTML文档时把他们全部下载。
+		通过此种方式，用户即使无法访问网络也能继续使用应用程序。 */
+
+		/* var buttons = document.querySelectorAll("button");
+		for (var i = 0; i < buttons.length; i++) {
+			buttons[i].onclick = handleButtonPress;
+		}
+		function handleButtonPress(e) {
+			document.getElementById("imgtarget").src = e.target.id + ".jpg";
+		} */
+
+		/* ###########定义清单 
+		清单允许我们列出离线工作所需的全部资源
+		第一行始终是：CACHE MANIFEST
+		其余行数列出资源,规范要求把HTML文档本身也加入清单，尽管第一次访问已经缓存。
+		无论怎么命名文件，必须让web服务器把里面的内容向浏览器描述为MIME类型text/cache-manifest
+		<html manifest="fruit.appcache">
+		
+		指定清单区域：
+		定义缓存区域
+			CACHE:需要缓存的文件可列在清单开头部分，也可以列在此
+		定义备用区域
+			FALLBACK区域允许我们指定浏览器应当如何处理没有包括在清单内的资源
+		 *.png offline.png：告诉浏览器，如果需要未被离线缓存的png文件，使用offline.png代替
+		定义网络区域：
+			NETWORK:定义一组不该被缓存的资源，浏览器应该始终从服务区请求他，即使离线。
+		 */
+
+		/*####### 检测浏览器状态 */
+		//	document.writeln(window.navigator.onLine);
+		/*############# 使用离线缓存 */
+		/* 	window.applicationCache:离线缓存对象
+			update():更新缓存
+			swapCache()：交换当前缓存与较新的缓存
+			status:返回缓存状态
+				0： UNCACHED 此文档没有缓存or缓存数据尚未下载
+				1：IDLE 缓存没有执行任何操作
+				2:CHECKING 浏览器正在检查清单or	清单所指定项目的更新
+				3:DOWNLOADING 浏览器正在下载清单or内容的更新
+				4:UPDATEREADY 有更新后的缓存数据可用
+				5:OBSOLETE 缓存数据已废弃，不应该在使用。通常清单文件被删除or移走
+			事件
+				checking:浏览器正在获取初始清单or检查清单更新
+				noupdate:没有更新可用，当前清单最新
+				downloading:浏览器正在下载清单指定的内容
+				progress:下载阶段触发
+				cached:清单指定的所有内容都被下载和缓存
+				updatereadly:新资源下载好，可以使用
+				obsolete：缓存废弃 */
+		var update = document.getElementById("update");
+		var swap = document.getElementById("swap");
+		update.onclick = handleButtonPress2;
+		swap.onclick = handleButtonPress2;
+		function handleButtonPress2(e) {
+			switch (e.target.id) {
+			case "swap":
+				window.applicationCache.swapCache();
+				alert(1);
+				break;
+			case "update":
+				window.applicationCache.update();
+				alert(1);
+				checkStatus();
+				break;
+			default:
+				document.getElementById("imgtarget").src = e.target.id + ".jpg";
+			}
+
+		}
+
+		/* window.applicationCache.onchecking = handleEvent;
+		window.applicationCache.onnoupdate = handleEvent;
+		window.applicationCache.ondownloading = handleEvent;
+		window.applicationCache.onupdateready = handleEvent;
+		window.applicationCache.oncached = handleEvent;
+		window.applicationCache.onobselete = handleEvent;
+
+		function handleEvent(e) {
+			document.getElementById("msg").innerHTML = e.type;
+			checkStatus();
+		}
+		function checkStatus() {
+			var statusNames = [ "UNCACHED", "IDLE", "CHECKING", "DOWNLOADING ",
+					"UPDATEREADY", "OBSOLETE" ];
+			var status = window.applicationCache.status;
+			document.getElementById("status").innerHTML = statusNames[status];
+
+		} */
+	</script>
+
+
+
+
+</body>
+</html>

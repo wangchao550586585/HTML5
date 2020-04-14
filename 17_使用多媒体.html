@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+</head>
+<body>
+	<!-- 
+preload:加载完包含video元素的网页后，是否立即去下载视频
+autoplay:立即播放
+controls:显示控件，快进等
+poster:视频数据载入时显示的图片
+ -->
+	<video id="media" src="./xx.mp4" width="360" height="240"
+		autoplay="autoplay" controls="controls" preload="metadata"
+		poster="./ceUqkmMnRz4g.png">
+		<!-- 备用地址 -->
+		<source src="./xx.webm" type="video/webm" />
+		无法播放
+	</video>
+
+	<!-- 嵌入音频 -->
+	<audio src="" autoplay="autoplay" controls="controls">
+		<source src="张学友 - 心如刀割.mp3">
+		播放失败
+	</audio>
+	<br />
+
+	<!-- 通过dom操作嵌入式媒体
+		父类为HTMLMediaElement
+		audio:对象为HTMLAudioElement
+		video:对象为HTMLVideoElement
+ -->
+	<button id="play">play</button>
+	<button id="pause">pause</button>
+	<script type="text/javascript">
+		var media = document.querySelector("#media");
+		document.writeln("autoplay:" + media["autoplay"] + "<br/>");
+		document.writeln("controls:" + media["controls"] + "<br/>");
+		document.writeln("loop:" + media["loop"] + "<br/>");
+		document.writeln("muted:" + media["muted"] + "<br/>");
+		document.writeln("preload:" + media["preload"] + "<br/>");
+		document.writeln("src:" + media["src"] + "<br/>");
+		document.writeln("volume:" + media["volume"] + "<br/>");
+
+		/* 是否支持该播放类型 */
+		document.writeln("volume:" + media.canPlayType("video/webm") + "<br/>");
+		document.writeln("volume:" + media.canPlayType("video/mp4") + "<br/>");
+
+		/* 控制媒体回放 */
+		document.writeln("currentTime:" + media["currentTime"] + "<br/>");
+		document.writeln("duration:" + media["duration"] + "<br/>");
+		document.writeln("paused:" + media["paused"] + "<br/>");
+		document.writeln("ended:" + media["ended"] + "<br/>");
+
+		var buttons = document.querySelectorAll("button");
+		for (var i = 0; i < buttons.length; i++) {
+			buttons[i].onclick = handleButtonPress;
+		}
+		function handleButtonPress(e) {
+			switch (e.target.innerHTML) {
+			case 'play':
+				media.play();
+				break;
+			case 'pause':
+				media.pause();
+				break;
+			}
+		}
+	</script>
+
+
+
+
+
+
+</body>
+</html>

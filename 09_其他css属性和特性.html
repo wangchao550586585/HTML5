@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+<style type="text/css">
+/* ###############设置元素颜色&透明度
+color:rgba(255,255,255,0.7); ：三原色值
+ */
+#p1 {
+	opacity: 0.4;
+}
+
+#p1:hover {
+	color: red;
+}
+
+/* ##############设置表格样式
+
+ */
+/* border-collapse:不要为相邻元素绘制2个边框，默认绘制边框
+	border-spacing:定义相邻元素边框的间距
+	empty-cells：是否隐藏空白表格，默认不
+	caption-side:设置标题位置
+	table-layout:默认设置等距离的列宽，fixed禁用默认值，需要设置width。不设置默认采用等距离列宽
+ */
+#t1 {
+	border-collapse: separate;
+	border-spacing: 10px;
+	empty-cells: hide;
+	caption-side: bottom;
+	table-layout: fixed;
+	width: 100%;
+}
+
+/* 设置列表样式 
+list-style-type：项目符号样式
+list-style-position:标记相对于li元素内容框的位置,inside标记内容框内部
+list-style-image:图像作为列表样式
+简写属性：list-style: list-style-type ,list-style-position ,list-style-image
+*/
+#o1 {
+	list-style-type: lower-alpha;
+	/* list-style-image: url('./ceUqkmMnRz4g.png'); */
+	background-color: red;
+}
+
+#o1 .li1 {
+	list-style-position: inside;
+}
+
+/* 设置光标样式 */
+#p2 {
+	cursor: progress;
+}
+</style>
+</head>
+<body>
+	<p id="p1">指定对象作为块元素级的表格。类同于html标签（CSS2） inline-table：
+		指定对象作为内联元素级的表格。类同于html标签（CSS2） table-caption：</p>
+	<table id="t1" border="1">
+		<caption>标题</caption>
+		<tr>
+			<td>哈哈</td>
+			<td>呵呵</td>
+			<td>哈哈</td>
+			<td>呵呵</td>
+		</tr>
+		<tr>
+			<td>哈哈</td>
+			<td>呵呵</td>
+			<td>哈哈</td>
+			<td>呵呵,指定对象作为内联元素级的表格。</td>
+		</tr>
+		<tr>
+			<td>哈哈</td>
+			<td>呵呵</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+
+	<ol id="o1">
+		<li class="li1">额</li>
+		<li class="li2">不要额</li>
+		<li>就不</li>
+	</ol>
+
+	<p id="p2">哈哈</p>
+
+
+</body>
+</html>

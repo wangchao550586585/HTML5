@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+</head>
+<body>
+	<div>
+		<input type="text" id="key" placeholder="Enter key" />
+	</div>
+	<div>
+		<input type="text" id="value" placeholder="Enter value" />
+	</div>
+	<div>
+		<button id="add">add</button>
+		<button id="clear">clear</button>
+	</div>
+
+	<script type="text/javascript">
+		/* ################存储简单的键值数据，跟cookie类似，共享相同的机制。 */
+		displayData();
+		var buttons = document.querySelectorAll("button");
+		for (var i = 0; i < buttons.length; i++) {
+			buttons[i].onclick = handlerButtonPress;
+		}
+		function handlerButtonPress(e) {
+			switch (e.target.id) {
+			case "add":
+				var key = document.querySelector("#key").value;
+				var value = document.querySelector("#value").value;
+				localStorage.setItem(key, value);
+				break;
+			case "clear":
+				localStorage.clear();
+				//localStorage.removeItem("这里放key");
+				break;
+			}
+			displayData();
+		}
+		function displayData() {
+			var itemCount = localStorage.length;
+			for (var i = 0; i < itemCount; i++) {
+				var key = localStorage.key(i);
+				var val = localStorage[key];
+				//var val = localStorage.getItem(key);
+				document.writeln(key + " " + val);
+			}
+
+		}
+/* 
+		#################监听存储事件，某个文档对本地存储进行修改时会触发storage事件
+		该事件不会再制造变化的文档内指派。
+			url:返回制造变化的文档url
+			storageArea:返回发生变化的Storage对象  
+	*/
+		window.onstorage = handleStorage;
+		function handleStorage(e) {
+			document.writeln(e.key + " " + e.oldValue + " " + e.newValue + " "
+					+ e.url + " " + (e.storageArea == localStorage));
+
+		}
+		
+		/* #################使用会话存储 
+		如上localStorage更改为sessionStorage即可。
+		与localStorage的区别在于，
+		storage事件只会在共享存储文档中触发
+		对于会话存储，意味事件只会在内嵌文档中触发，譬如使用iframe
+		*/
+
+		
+	</script>
+
+
+
+
+</body>
+</html>

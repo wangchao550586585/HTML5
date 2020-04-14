@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1300" style="border: thick double red">
+you doesn't support the <code>canvas</code> element
+</canvas>
+	<img src="ceUqkmMnRz4g.png" hidden="true" id="img" />
+	<button>save</button>
+	<button>restore</button>
+	<button id="press">press</button>
+	<br />
+	<video src="xx.webm" controls="controls" width="300" height="250"
+		id="video" preload="auto">哈喽，大家好
+	</video>
+
+	<canvas id="canvas2" width="1300" height="500"
+		style="border: thick double red">出错了
+</canvas>
+
+	<button id="press2">press2</button>
+	<br />
+	<script type="text/javascript">
+		var canvas = document.querySelector("canvas");
+		canvas.height = "500";
+
+		//从画布上获取2维上下文对象
+		var ctx = canvas.getContext("2d");
+		/* 绘制实心矩形 */
+		ctx.fillRect(10, 10, 50, 50);
+		/* 清除矩形 */
+		ctx.clearRect(10, 10, 40, 40);
+		/* 设置线条宽度 */
+		ctx.lineWidth = 10;
+		/* 设置线条连接样式 */
+		ctx.lineJoin = "round";
+		/* 绘制空心矩形 */
+		ctx.strokeRect(50, 50, 50, 50);
+		ctx.lineJoin = "bevel";
+		ctx.strokeRect(130, 50, 50, 50);
+		ctx.lineJoin = "miter";
+		ctx.strokeRect(210, 50, 50, 50);
+
+		/* 设置填充和笔触样式， 颜色 */
+		ctx.fillStyle = "grey";
+		ctx.fillRect(10, 10, 50, 50);
+		ctx.strokeStyle = "rgb(0,0,255)";
+		ctx.strokeRect(290, 50, 50, 50);
+
+		/* ##############使用渐变 ,canvas支持线性和径向2种渐变
+		建议：在定义梯度线时应该相对于画布进行设置，而不是绘制的图形
+		 */
+
+		/* 创建线性渐变（0, 0)开始， (500, 140)结束 */
+		var grad = ctx.createLinearGradient(0, 0, 700, 400);
+		/* 给渐变的梯度线添加一种纯色 
+				参数1：在线段上应用颜色的位置，线段起点0(在这个里面是0,0)，终点1
+				参数2：指定颜色
+		 */
+		grad.addColorStop(0, "red");
+		grad.addColorStop(0.5, "white");
+		grad.addColorStop(1, "black");
+		ctx.fillStyle = grad;
+		ctx.fillRect(0, 0, 600, 300);
+
+		/*使用径向渐变 
+			参数1/2：起点圆的圆心坐标
+			参数3:起点圆的半径
+			参数4/5终点圆的圆心坐标
+			参数6:终点圆的半径
+			给渐变添加颜色时，会放置在起点圆边界和终点圆边界之间的一条线段上
+				起点圆边界(0.0)
+				终点圆边界(1.0)
+		 */
+		var grad = ctx.createRadialGradient(250, 70, 20, 200, 60, 100);
+		grad.addColorStop(0, "red");
+		grad.addColorStop(0.5, "white");
+		grad.addColorStop(1, "black");
+		ctx.fillStyle = grad;
+		ctx.fillRect(0, 0, 500, 140);
+
+		/* 作用于线条 */
+		var grad = ctx.createRadialGradient(250, 70, 20, 200, 60, 100);
+		grad.addColorStop(0, "red");
+		grad.addColorStop(0.5, "white");
+		grad.addColorStop(1, "black");
+		ctx.fillStyle = grad;
+		ctx.fillRect(150, 20, 75, 50);
+
+		ctx.lineWidth = 8;
+		ctx.strokeStyle = grad;
+		ctx.strokeRect(250, 20, 75, 50);
+
+		/* 使用图案 
+		参数1：HTMLImageElement对象
+		参数2：图案重复值，repeat,repeat-x,repeat-y,no-repeat;
+		 */
+		var imageElem = document.querySelector("#img");
+		var pattern = ctx.createPattern(imageElem, "repeat");
+		ctx.fillStyle = pattern;
+		ctx.fillRect(0, 0, 500, 140);
+
+		/* #################保存和恢复绘制状态  */
+		grad = ctx.createLinearGradient(500, 0, 500, 140);
+
+		var colors = [ "black", "grey", "red", "green", "yellow", "black",
+				"grey" ];
+		var cIndex = 0;
+		ctx.fillStyle = colors[cIndex];
+		ctx.fillRect(0, 0, 500, 140);
+
+		var buttons = document.querySelectorAll("button");
+		for (var i = 0; i < buttons.length; i++) {
+			buttons[i].onclick = handleButtonsPress;
+		}
+		function handleButtonsPress(e) {
+			switch (e.target.innerHTML) {
+			case 'save':
+				//保存当前状态,实际上是保存的是绘制状态的属性值，如：fillStyle,lineWidth
+				ctx.save();
+				cIndex = (cIndex + 1) % colors.length;
+				ctx.fillStyle = colors[cIndex];
+				ctx.fillRect(0, 0, 500, 140);
+				break;
+			case 'restore':
+				cIndex = Math.max(0, cIndex - 1);
+				//恢复到当前状态
+				ctx.restore();
+				ctx.fillRect(0, 0, 500, 140);
+				break;
+			}
+		}
+
+		/* ##################绘制图像 ,
+		参数1：图像来源，可以其他资源，如video
+		方法1:参数2&3表示图像在画布上绘制的坐标,图像按照原始宽度和高度绘制
+		方法2：参数4&5指定给图像绘制的宽度和高度
+		方法3：参数2&3指定源图像内的偏移量
+		参数4&5指定源图像所划分的区域宽度和高度
+		参数6&7指定所选区域左上角将要在画布上绘制的坐标
+		参数8&9指定所选区域将要绘制的宽度和高度
+		 */
+		ctx.drawImage(imageElem, 10, 10);
+		ctx.drawImage(imageElem, 120, 10, 100, 120);
+		ctx.drawImage(imageElem, 200, 200, 500, 500, 0, 0, 500, 500);
+
+		/* ##############使用视频图像,实际上是对视频做了截图  */
+		var press = document.querySelector("#press");
+		var imageElem2 = document.querySelector("#video");
+		press.onclick = function() {
+			ctx.drawImage(imageElem2, 0, 0, 200, 600);
+		}
+
+		/* 使用画布图像 ，将一张画布作为另一张里drawImage方法来源*/
+		var press2 = document.querySelector("#press2");
+		var ctx2 = document.getElementById("canvas2").getContext("2d");
+		press2.onclick = function() {
+			ctx2.drawImage(canvas, 0, 0, 360, 240);
+			ctx2.strokeRect(10, 10, 360, 240);
+		}
+	</script>
+
+
+</body>
+</html>

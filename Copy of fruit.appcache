@@ -1,0 +1,13 @@
+CACHE MANIFEST
+img1.jpg
+23_创建离线web应用程序.html
+
+FALLBACK:
+*.png offline.png
+* a.html
+
+CACHE:
+apple.png
+
+NETWORK:
+c1.png

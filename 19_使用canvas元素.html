@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+</head>
+<body>
+
+	<canvas id="canvas" width="1300" style="border: thick double red"
+		height="500">
+you doesn't support the <code>canvas</code> element
+</canvas>
+	<script type="text/javascript">
+		var canvas = document.querySelector("canvas");
+		var ctx = canvas.getContext("2d");
+		/* 
+		beginPath():开始一条新路径
+		closePath():闭合现有路径
+		isPointInPath(x,y):判断指定点是否在当前路径所描述的图形之内
+		lineTo(x,y):绘制一条到指定坐标的子路径
+		moveTo(x,y):移动到指定坐标的子路径
+		rect(x,y,w,h):绘制矩形，
+		stroke():给子路径描述的图形绘制轮廓线 
+		fill():填充子路径描述的图形
+		 */
+
+		/* 用路径绘图 
+		1：调用beginPath()
+		2：moveTo()移动到起点
+		3:arc&lineTo等方法绘制子路径
+		4：调用closePath()，可选
+		5：调用fill()|stoke()
+		 */
+		ctx.fillStyle = "yellow";
+		ctx.strokeStyle = "red";
+		ctx.lineWidth = 4;
+
+		ctx.beginPath();
+		ctx.moveTo(0, 0);
+		ctx.lineTo(110, 10);
+		ctx.lineTo(120, 120);
+		ctx.closePath();
+		ctx.fill();
+		ctx.stroke(); //放在fill前面，会被后面的fill覆盖一部分，导致轮廓线变窄 	
+
+		ctx.beginPath();
+		ctx.moveTo(150, 10);
+		ctx.lineTo(200, 10);
+		ctx.lineTo(200, 120);
+		ctx.lineTo(190, 120);
+		ctx.fill();
+		ctx.stroke();
+
+		/* 在未闭合图形or线条可以使用
+		lineCap属性:设置线条末端的样式 */
+		var style = [ "butt", "round", "square" ];
+		var xpos = 250;
+		for (var i = 0; i < style.length; i++) {
+			ctx.beginPath();
+			ctx.lineCap = style[i];
+			ctx.moveTo(xpos, 10);
+			ctx.lineTo(xpos, 120);
+			ctx.stroke();
+			xpos += 50;
+		}
+
+		/* 绘制矩形 */
+		ctx.fillStyle = "yellow";
+		ctx.strokeStyle = "red";
+		ctx.lineWidth = 4;
+
+		ctx.beginPath();
+		ctx.moveTo(400, 10);
+		ctx.lineTo(480, 10);
+		ctx.lineTo(480, 110);
+		ctx.closePath();
+
+		ctx.rect(500, 10, 100, 90);
+		ctx.rect(500, 110, 130, 30);
+		ctx.fill();
+		ctx.stroke();
+
+		/* ##############绘制圆弧 
+		 */
+
+		/* 使用arcTo 
+		arcTo(x1,y1,x2,y2,rad)：绘制一段半径为rad，经过(x1,y1)直到(x2,y2)的圆弧
+		 */
+		var point1 = [ 100, 150 ];
+		var point2 = [ 200, 150 ];
+		var point3 = [ 200, 250 ];
+
+		ctx.fillStyle = "yellow";
+		ctx.strokeStyle = "red";
+		ctx.lineWidth = 4;
+		draw();
+		/* canvas.onmousemove = function(e) {
+			if (e.ctrlKey) {
+				point1 = [ e.clientX, e.clientY ];
+			} else if (e.shiftKey) {
+				point2 = [ e.clientX, e.clientY ];
+			} else {
+				point3 = [ e.clientX, e.clientY ];
+			}
+			ctx.clearRect(0,0,1300,500);
+			draw();
+		}*/
+		function draw() {
+			ctx.beginPath();
+			ctx.moveTo(point1[0], point1[1]);
+			ctx.arcTo(point2[0], point2[1], point3[0], point3[1], 100);
+			ctx.stroke();
+
+			//绘制点
+			drawPoint(point1[0], point1[1]);
+			drawPoint(point2[0], point2[1]);
+			drawPoint(point3[0], point3[1]);
+
+			ctx.beginPath();
+			ctx.moveTo(point1[0], point1[1]);
+			ctx.lineTo(point2[0], point2[1]);
+			ctx.lineTo(point3[0], point3[1]);
+			ctx.stroke();
+		}
+		//绘制点
+		function drawPoint(x, y) {
+			ctx.lineWidth = 1;
+			ctx.strokeStyle = "blue";
+			ctx.strokeRect(x - 2, y - 2, 4, 4);
+		}
+
+		/* 使用arc 
+		arc(x,y,rad,startAngle,endAngle,direction)
+			x/y：绘制一段圆弧到(x,y)
+			rad:半径
+			startAngle/endAngle：起始/结束角度
+					起始°为0，表示圆的3点钟方向
+					一个完整的圆起点是0，终点是2P。
+			direction:圆弧方向
+					false:顺时针
+					true:逆时针
+		 */
+		ctx.strokeStyle = "red";
+		ctx.fillStyle = "blue";
+		ctx.lineWidth = "3";
+
+		ctx.beginPath();
+		ctx.arc(70, 70, 60, 0, Math.PI * 2, true);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.arc(200, 70, 60, 0, Math.PI * 1.5, true);
+		ctx.fill();
+		ctx.stroke();
+
+		ctx.beginPath();
+		var val = 0;
+		for (var i = 0; i < 4; i++) {
+			ctx.arc(350, 70, 60, val, val + Math.PI / 4, false);
+			val += Math.PI / 2;
+		}
+		ctx.closePath();
+		ctx.fill();
+		ctx.stroke();
+
+		/* ###############绘制贝塞尔曲线,canvas支持3次&2次贝塞尔曲线
+		bezierCurveTo(cx1,cy1,cx2,cy2,x,y):绘制一段内塞尔曲线到点(x,y),控制点为(cx1,cy1)&(cx2,cy2)
+		bezierCurveTo(cx,cy,x,y):绘制一段2次贝塞尔曲线到点(x,y),控制点为(cx,cy)
+		 */
+		var startPoint = [ 50, 100 ];
+		var endPoint = [ 400, 100 ];
+		var cp1 = [ 250, 50 ];
+		var cp2 = [ 350, 50 ];
+		/* canvas.onmousemove = function(e) {
+			if (e.ctrlKey) {
+				cp1 = [ e.clientX, e.clientY ];
+			} else if (e.shiftKey) {
+				cp2 = [ e.clientX, e.clientY ];
+			}
+			ctx.clearRect(0, 0, 1300, 500);
+			draw2();
+		} */
+		draw2();
+		function draw2() {
+			ctx.lineWidth = 3;
+			ctx.strokeStyle = "black";
+
+			ctx.beginPath();
+			ctx.moveTo(startPoint[0], startPoint[1]);
+			//3次曲线
+			/* 	ctx.bezierCurveTo(cp1[0], cp1[1], cp2[0], cp2[1], endPoint[0],
+						endPoint[1]); */
+
+			//2次曲线
+			ctx.quadraticCurveTo(cp1[0], cp1[1], endPoint[0], endPoint[1]);
+			ctx.stroke();
+
+			ctx.lineWidth = 1;
+			ctx.strokeStyle = "red";
+			var points = [ startPoint, endPoint, cp1, cp2 ];
+			for (var i = 0; i < points.length; i++) {
+				drawPoint2(points[i]);
+			}
+			drawLine(startPoint, cp1);
+			drawLine(endPoint, cp2);
+		}
+		function drawPoint2(point) {
+			ctx.beginPath();
+			ctx.strokeRect(point[0] - 2, point[1] - 2, 4, 4);
+		}
+		function drawLine(from, to) {
+			ctx.beginPath();
+			ctx.moveTo(from[0], from[1]);
+			ctx.lineTo(to[0], to[1]);
+			ctx.stroke();
+		}
+
+		/* ###################创建剪辑区域 */
+		ctx.fillStyle = "yellow";
+		ctx.beginPath();
+		ctx.rect(0, 0, 500, 140);
+		ctx.fill();
+
+		ctx.beginPath();
+		ctx.rect(100, 20, 300, 100);
+		//裁剪
+		//	ctx.clip();
+
+		ctx.fillStyle = "red";
+		ctx.beginPath();
+		ctx.rect(0, 0, 500, 140);
+		ctx.fill();
+
+		/*################ 绘制文本
+			fillText(text,x,y,width)
+			strokeText(text,x,y,width)
+		文本绘制状态属性
+			font:使用字体
+			textAlign:设置文本对齐方式，start,end,left,right,center
+			textBaseLine:设置文本基线:top/hanging/middle/alphabetic/ideographic/bottom
+		 */
+		ctx.clearRect(0, 0, 1300, 500);
+
+		ctx.fillStyle = "lightgrey";
+		ctx.strokeStyle = "black";
+		ctx.lineWidth = 3;
+
+		ctx.font = "100px sans-serif";
+		ctx.fillText("哈哈1", 0, 100, 100);
+		ctx.strokeText("哈哈2", 0, 150);
+
+		/* ############使用特效和变换 */
+		ctx.clearRect(0, 0, 1300, 500);
+
+		ctx.fillStyle = "lightgrey";
+		ctx.strokeStyle = "black";
+		ctx.lineWidth = 3;
+		
+		
+		/*使用阴影
+		1:设置阴影水平偏移量
+		2:设置阴影模糊程度
+		3:设置阴影颜色
+		*/
+		ctx.shadowOffsetX = 5;
+		ctx.shadowOffsetY = 5;
+		ctx.shadowBlur = 5;
+		ctx.shadowColor = "grey";
+		
+		/* 使用合成，可以与透明度globalAlpha结合使用，来控制图形&文本在画布上绘制的方式
+		copy:显示源图像。忽略目标图像。
+		*/
+		ctx.globalCompositeOperation="lighter";
+		
+		/* 使用透明度,全局。
+		也可以fillStyle/strokeStyle指定一个rgba值，设置透明。
+		*/
+		ctx.globalAlpha=0.5;
+		
+		/* 使用变换
+		scale(xScale,yScale):沿X/Y轴缩放画布xScale倍，
+		translate(x,y):重映射画布坐标为沿X/Y轴
+		rotate(angle)::画布围绕点(0,0)顺时针旋转指定的弧度数
+		transform(a,b,c,d,e,f):合并现有的变换和a-f值所指定的矩阵
+		setTransform(a,b,c,d,e,f):用a-f所指定的矩阵替换现有的变换 */
+		ctx.scale(1.5,1.5);
+		ctx.rotate(Math.PI*2); 
+		ctx.translate(50,50);
+		
+		ctx.strokeRect(250, 20, 100, 100);
+
+		ctx.beginPath();
+		ctx.arc(420, 70, 50, 0, Math.PI, true);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.arc(420, 80, 40, 0, Math.PI, false);
+		ctx.fill();
+
+		ctx.font = "100px sans-serif";
+		ctx.fillText("哈哈1", 0, 100);
+		ctx.strokeText("哈哈2", 0, 150);
+		
+		/*############# 使用变换 
+		
+		
+		*/
+		
+		
+		
+		
+		
+	</script>
+
+
+</body>
+</html>

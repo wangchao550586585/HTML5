@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+<script type="text/javascript">
+	/* 状态改变触发，可以延迟脚本执行。defer也可以 */
+	document.onreadystatechange = function() {
+		/* 查看加载和解析html文档过程中当前处于哪个阶段的信息 */
+		if (document.readyState = "interactive") {
+			document.getElementById("b1").innerHTML = "123";
+
+		}
+	}
+</script>
+</head>
+<body id="body">
+	<p id="p1">指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+	<p id="p2">指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+
+	<button id="b1">哈哈</button>
+	<img alt="" src="" id="i1" />
+	<img alt="标题" src="" id="i2" />
+	<script type="text/javascript">
+		document.writeln("<pre>URL:" + document.URL);
+		var elems = document.getElementsByTagName("p");
+		for (var i = 0; i < elems.length; i++) {
+			document.writeln("ElementId:" + elems[i].id);
+			elems[i].style.border = "medium double black";
+			elems[i].style.padding = "4px";
+		}
+
+		document.writeln("返回只读文档的字符集属性 :" + document.characterSet);
+		document.writeln("获取or设置文档字符集编码:" + document.charset);
+		document.writeln("文档兼容模式:" + document.compatMode);
+		document.writeln("默认字符编码:" + document.defaultCharset);
+		document.writeln("获取or设置文本方向:" + document.dir);
+		document.writeln("获取or设置当前文档域名:" + document.domain);
+		document.writeln("最后修改时间:" + document.lastModified);
+		document.writeln("返回链接到当前文档的文档url,对应http标头的值:" + document.referrer);
+		document.writeln("获取or设置当前文档标题:" + document.title);
+
+		/* 获取当前文档信息 */
+		document.writeln("获取or设置文档url协议部分 :" + document.location.protocol);
+		document.writeln("获取or设置文档url的主机和端口(80不返回):" + document.location.host);
+		document.writeln("获取or设置文档url的地址:" + document.location.href);
+		document.writeln("获取or设置文档url主机名部分:" + document.location.hostname);
+		document.writeln("获取or设置文档url端口部分:" + document.location.port);
+		document.writeln("获取or设置文档url路径部分:" + document.location.pathname);
+		document.writeln("获取or设置文档url查询(问号串)部分" + document.location.search);
+		document.writeln("获取or设置文档url锚(#)部分" + document.location.hash);
+		/* document.writeln("将指定的相对url解析成绝对url" + document.location.resolveURL("./2.html")); */
+
+		/* 设置值 */
+		document.location.hash = "123";
+		document.write("</pre>")
+
+		/* 当前页面跳转 */
+		document.getElementById("b1").onclick = function() {
+			/* 	//能够倒退
+				document.location.assign("http://baidu.com");
+				//不能倒退
+				document.location.replace("http://baidu.com"); */
+			/* document.location.reload();  */
+
+		}
+
+		/* 读取写入cookie */
+		document.getElementById("b1").innerHTML = document.cookie;
+		document.cookie = "key=123;key2=123"
+
+		/* 查看dom实现情况 */
+		document.writeln(document.implementation.hasFeature("CSS", "2.0"));
+
+		/* ####################使用属性获取dom对象 
+		activeElement
+		body
+		Embedsplugins
+		forms
+		head
+		images
+		links
+		scripts
+		 */
+		var elems = document.images;
+		document.writeln(elems[0].id + " " + elems.length);
+		document.writeln(elems.namedItem("i2").alt);
+		document.writeln(1);
+
+		/* 使用数组标记获取已命名元素 ,[失效]
+		var el = document["i2"];
+		var el = document.i2;
+		if (el.namedItem) {
+			document.writeln(el.length + " " + 1);
+		} else {
+			document.writeln(1);
+		}
+		 */
+
+		/* #############搜索元素 
+		document.getElementById:指定id值的元素
+		document.getElementByClassName:指定class值元素
+		document.getElementByName:指定name值元素
+		document.getElementByTagName：指定类型的元素
+		document.querySelector:返回指定css选择器的第一个元素
+		document.querySelectorAll：返回指定css选择器的所有元素
+
+		document.querySelectorAll("p,img#i1"):获取所有p元素和id值为i1的img元素
+		
+		 */
+		/* 链式搜索 ,getElementById只有document才能直接使用*/
+		document.getElementById("body").querySelector("#p1").innerHTML = "red";
+
+		/*############### 将dom作为一个树形结构导航，元素的下一个元素有可能不是写的那样
+		childNodes:返回子元素组
+		firstChild：第一个子元素
+		lastChild:倒数第一个子元素
+		nextSibling:返回定义在当前元素之后的兄弟元素
+		previousSibling:返回定义在当前元素之前的兄弟元素
+		parentNode:返回父元素
+		hasChildNodes():有子元素返回true 
+		 */
+		var element = document.body;//获取body元素
+		var ele = element.firstChild.nextSibling;
+		ele.style.backgroundColor = "blue";
+		ob.innerHTML = element.id + " " + element.hasChildNodes()+" "+ele.nodeName;
+	</script>
+
+
+
+
+</body>
+</html>

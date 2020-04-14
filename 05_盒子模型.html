@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+
+<style type="text/css">
+/* ############
+内边距 :padding上右下左, 设置一个值表示4周都用同一个值
+外边距：margin上右下左
+*/
+
+/* ########控制元素尺寸：
+	width
+	height
+	min-width /height：最小可接受的宽度or高度, auto /长度值/百分数
+	max-width /height：最大可接受的宽度or高度, auto /长度值/百分数
+	box-sizeing: 设置尺寸调整应用到元素盒子那一部分
+使P1元素在最大尺寸和最小尺寸中维持50%大小 
+*/
+#p1 {
+	width: 50%;
+	min-width: 100px;
+	max-width: 200px;
+}
+
+/* #######处理溢出内容*/
+#p2 {
+	border: thin solid blue;
+	height: 50px;
+	width: 500px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	overflow: inherit;
+}
+/* #############控制元素可见性 
+collapse:表格外等同hidden，在表格里面隐藏列or行，可以被其他列行占用此空间 
+hidden:不可见，占据空间
+visible：默认，可见
+*/
+#p3 {
+	visibility: collapse;
+}
+
+#p4 {
+	visibility: collapse;
+}
+
+/* 设置元素的盒类型
+display:可以设置为块级元素or行内元素等
+block:设置为块级元素
+inline:盒子显示为文本行中的字，会忽略height、width等属性
+inline-block:行内-块级元素，整体上作为行内元素显示，垂直方向上该元素和周围内容并排显示,盒子内部作为块元素显示。可使用其他属性
+run-in:插入元素，盒子类型取决于周围元素.
+	如果插入元素包含display元素为 block元素，则插入元素为块级元素
+	如果插入元素的相邻兄弟元素是块元素，插入元素就是兄弟元素中第一个行内元素
+	其他情况都为块元素。
+ */
+#p5 {
+	border: 1px solid red;
+}
+
+#p6 {
+	display: block;
+	border: 1px solid aqua;
+}
+
+#p7 {
+	display: inline;
+	border: solid thin red;
+}
+
+#p8 {
+	border: solid 5px blue;
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	margin: 0px 0px 10px 10px;
+}
+
+/* #############浮动盒子 */
+#p10 {
+	/* float: left; */
+	
+}
+/* ######阻止浮动元素堆叠 
+clear:可以指定浮动元素的一个边界or3个边界不能挨着另一个浮动元素
+*/
+#p11 {
+	border: medium solid blue;
+	width: 300px;
+	height: 120px;
+	float: right;
+}
+
+#p12 {
+	border: medium solid red;
+	width: 250px;
+	height: 170px;
+	float: right;
+	clear: right;
+}
+</style>
+
+</head>
+<body>
+	<img src="./ceUqkmMnRz4g.png" id="p1">
+	<div id="p2">您已经绑定过密保卡 密保卡序列号： 建议换卡日期：2016-10-6 温馨提示：
+		您的密保卡到更换日期后，依旧可以正常使用，不过长时间使用同一张密保卡会有被监听和搜集的风险， 建议您根据系统建议的换卡时间及时更换密保卡。
+	</div>
+	<button id="p3">哈哈</button>
+	<button>哈哈</button>
+	<table>
+		<tr id="p4">
+			<th>哈哈</th>
+			<th>呵呵</th>
+		</tr>
+		<tr>
+			<th>哈哈</th>
+			<th>呵呵</th>
+		</tr>
+	</table>
+
+	<p id="p5">
+		<span id="p7">none：
+			隐藏对象。与visibility属性的hidden值不同，其不为被隐藏的对象保留其物理空间 inline： 指定对象为内联元素。
+			block： 指定对象为块元素。 list-item： 指定对象为列表项目。 inline-block：
+			指定对象为内联块元素。（CSS2） table： 指定对象作为块元素级的表格。类同于html标签（CSS2） inline-table：</span>
+		指定对象作为内联元素级的表格。类同于html标签（CSS2）
+		table-caption：指定对象作为表格标题。类同于html标签（CSS2） <span id="p8">
+			table-cell： 指定对象作为表格单元格。类同于html标签（CSS2） table-row：
+			指定对象作为表格行。类同于html标签（CSS2） table-row-group： 指定对象作为表格行组。类同于html标签（CSS2）
+			table-column： 指定对象作为表格列。类同于html标签（CSS2） table-column-group：
+			指定对象作为表格列组显示。类同于html标签（CSS2）</span> table-header-group：
+		指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）
+	</p>
+	<p id="p10">
+		compact： 分配对象为块对象或基于内容之上的内联对象（CSS3） run-in： 分配对象为块对象或基于内容之上的内联对象（CSS3）
+		ruby： 将对象作为表格脚注组显示（CSS3） <span id="p6"> ruby-base：
+			将对象作为表格脚注组显示（CSS3） ruby-text： 将对象作为表格脚注组显示（CSS3） ruby-base-group：
+			将对象作为表格脚注组显示（CSS3） ruby-text-group： 将对象作为表格脚注组显示（CSS3） box：
+			将对象作为弹性盒模型显示（CSS3） inline-box：</span> 将对象作为内联块级弹性盒模型显示（CSS3）
+	</p>
+	<div id="p11">将对象作为表格脚注组显示（CSS3） ruby-text-group：
+		将对象作为表格脚注组显示（CSS3） box： 将对象作为弹性盒模型显示（CSS3） inline-box：
+		将对象作为内联块级弹性盒模型显示（CSS3）</div>
+	<div id="p12">uby： 将对象作为表格脚注组显示（CSS3） ruby-base：
+		将对象作为表格脚注组显示（CSS3） ruby-text： 将对象作为表格脚注组显示（CSS3） ruby-base-group：
+		将对象作为表格脚注组显示（CSS3） ruby-text-group： 将对象作为表格脚注组显示（CSS3）</div>
+
+
+
+
+</body>
+</html>

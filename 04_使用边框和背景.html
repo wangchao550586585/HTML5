@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+
+<style type="text/css">
+/*#####################1:设置元素边框 */
+p {
+	border: medium solid black;
+}
+
+#p1 {
+	/* 边框宽度/边框样式/边框颜色 */
+	border-width:10px;
+	border-style: inset;
+	border-color: black;
+	/* 定义边应用边框样式 */
+	border-top-color: aqua;
+	border-top-style: none;
+	border-top-width: medium;
+	/* 一次指定 */
+	border: medium solid aqua;
+}
+/* 创建圆角边框,需要指定2个值(长度，百分比均可)
+	第一个值:水平曲线半径
+	第二个值:垂直曲线半径
+	border-top-left-radius：
+	border-top-right-radius
+	border-bottom-left-radius
+	border-bottom-right-radius
+	border-radius：一次设置4个角的简写属性，1对or4对长度值or百分比值。用"/"符号分割
+ */
+#p2 {
+	border-top-left-radius: 20px 15px;
+}
+
+/* 这一对值会应用到边框的4角上，需要用/字符将水平半径和垂直半径隔开 */
+#p3 {
+	border-radius: 20px/15px;
+}
+
+/* 指定8个值，第一组4个值指定4个角的水平半径，第二组4角指定垂直半径 */
+#p4 {
+	border-radius: 50% 20px 25% 5em/25% 15px 40px 55%;
+}
+
+/* 图像作为边框 
+border-image-source:设置图像来源，url或者none
+border-image-slice:设置切分图像的偏移，1~4个长度值or百分数
+border-image-width：图像边框宽度，1~4个长度值or百分数 or auto
+border-image-outset:指定边框向外扩展的部分,1~4个长度值or百分数
+border-image-repeat:图片填充边框区域的模式,(stretch,repeat,round)3个值中的1个or2个
+			stretch:拉伸切分图填满整个空间，默认值
+			repeat:平铺切分图填满整个空间，会导致截断
+			round:不截断切分图情况下，平铺切分图并拉伸填满整个空间
+			space：不截断切分图，平铺切分图并在图片之间保留一定的间距填满整个空间
+border-image:设置所有的属性值
+提供2个值表示水平方向和垂直方向的偏移量，一个值则表示4个偏移量都一样
+*/
+#p5 {
+	border-image: url(./ceUqkmMnRz4g.png) 30/50px;
+	border-image: url(./ceUqkmMnRz4g.png) 30/50px;
+	border-image: url(./ceUqkmMnRz4g.png) 30/50px;
+}
+
+/*################### 2:设置元素背景 */
+/* 
+background-color 设置背景色
+background-image 背景图片
+background-size 背景图像尺寸
+background-repeat 重复方式
+background-position: 背景图像位置 :这里设置的是距离左边界30px，顶部边界10px 
+background-attachment 背景图片附着方式：如内容滚动，背景图片不滚动等
+background-origin：指定背景颜色&背景图像应用的位置
+background-clip:裁剪样式决定背景颜色&图像在元素盒子中绘制的区域.决定背景的那一部分可见，裁剪盒子之外的部分一律舍弃
+*/
+#p6 {
+	/* border: 300px double black; */
+	width: 600px;
+	height: 900px;
+	background-color: aqua;
+	background-image: url(./ceUqkmMnRz4g.png);
+	background-size: 300px 400px;
+	background-repeat: repeat;
+	background-position: 30px 10px;
+	background-attachment: fixed;
+	background-origin: border-box;
+	background-clip: content-box;
+	background: aqua repeat;
+}
+/*############# 创建盒子阴影 */
+/* 
+box-shadow:hoffset voffset blur spread color inset;可定义多个阴影，使用逗号隔开即可
+hoffset:水平偏移值，负值表示阴影向左偏移
+voffset：垂直偏移值，负值表示阴影向上偏移
+blur：模糊值，默认0清晰。
+spread：阴影向盒子4周延伸值,负值表示沿相反方向缩小
+color:阴影颜色
+inset：外部阴影设置为内部阴影，内嵌到盒子中。 */
+#p7 {
+	width: 15px;
+	height: 50px;
+	border: 10px double red;
+	box-shadow: 1px 5px 10px 5px black, 4px 4px 6px gray inset;
+	margin-left: 150px;
+}
+
+/* 	###################应用轮廓
+	outline-color: 轮廓颜色
+	outline-offset: 距离边框边缘偏移值
+	outline-style: 样式
+	outline-width: 轮廓宽度
+	outline：颜色，样式，宽度
+ */
+#p8 {
+	width: 15px;
+	height: 50px;
+	margin-left: 150px;
+	outline-color: aqua;
+	outline-offset: 10px;
+	outline-style: double;
+	outline-width: thick;
+	outline: aqua solid thick;
+}
+</style>
+
+</head>
+<body>
+	<p id="p1">哈哈</p>
+	<p id="p2">圆角边框</p>
+	<p id="p3">圆角边框</p>
+	<p id="p4">圆角边框</p>
+	<p id="p5">圆角边框</p>
+	<p id="p6">背景样式 检索或设置对象的背景图像的尺寸大小。 该属性提供2个参数值(特性值cover和contain除外)。
+		如果提供两个，第一个用于定义背景图像的宽度，第二个用于定义背景图像的高度。
+		如果只提供一个，该值将用于定义背景图像的宽度，第2个值默认为auto，即高度为auto，此时背景图以提供的宽度作为参照来进行等比缩放。
+		对应的脚本特性为backgroundSize。</p>
+
+	<p id="p7">圆角边框</p>
+	<p id="p8">圆角边框</p>
+
+
+
+
+
+</body>
+</html>

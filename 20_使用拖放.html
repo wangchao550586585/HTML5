@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+
+<style type="text/css">
+#src>* {
+	float: left;
+	margin: 5px;
+}
+
+#img1 {
+	border: thin solid red;
+	height: 100px;
+	width: 100px;
+}
+
+#target {
+	height: 200px;
+	width: 200px;
+	border: thin solid red;
+}
+
+img.dragged {
+	background-color: red;
+}
+</style>
+</head>
+<body>
+	<div id="src">
+		<!-- draggable：是否可拖动 -->
+		<img id="img1" src="ceUqkmMnRz4g.png" draggable="true" />
+
+		<div id="target">
+			<p id="msg">Drop Here</p>
+		</div>
+		<script type="text/javascript">
+			var img1 = document.querySelector("#img1");
+			var target = document.querySelector("#target");
+			var src = document.querySelector("#src");
+			var msg = document.querySelector("#msg");
+			var draggedID;
+
+			/*########## 处理拖动事件
+					dragstart:被拖动时触发
+					drag:被拖动时反复触发
+					dragend:拖动操作完成触发 
+			 */
+			src.ondragstart = function(e) {
+				draggedID = e.target.id;
+				e.dataTransfer.setData("Text", e.target.id);
+				e.target.classList.add("dragged");
+			}
+			src.ondrag = function(e) {
+				e.target.classList.remove("dragged");
+				msg.innerHTML = "Drop Here";
+			}
+			src.ondragend = function(e) {
+				msg.innerHTML = e.target.id;
+			}
+
+			/*######## 创建释放区 ,释放区事件如下
+			dragenter:被拖动元素进入释放区所占据的屏幕空间触发
+			dragover:被拖动元素在释放区移动时触发
+			dragleave被拖动元素没有放下就离开释放区触发
+			drop：被拖动元素在释放区放下触发
+			 */
+			target.ondragenter = handlerDrag;
+			target.ondragover = handlerDrag;
+			function handlerDrag(e) {
+				//清除默认行为,默认行为为拒绝接受任何被拖放的项目
+				e.preventDefault();
+			}
+
+			/* ##########定义全局变量接受释放 
+			drop事件：接受释放的元素,他会在某个项目被放到释放区元素上触发
+			使用draggedID提前保存元素的id
+			 */
+
+			/* target.ondrop = function(e) {
+				//在src.ondragstart添加此键值
+				var newElem = document.getElementById(draggedID).cloneNode(
+						false);
+				var newElem = document.querySelector("#" + draggedID)
+						.cloneNode(false);
+				target.innerHTML = "";
+				target.appendChild(newElem);
+				e.preventDefault();
+			} */
+
+			/* #######使用DataTransfer对象 ，跨浏览器，推荐
+			dataTransfer:返回用于传输数据到释放区的对象
+				types:数据格式
+				getData(format):返回指定格式数据
+				setData(format,data):设置指定格式的数据
+				clearData(format):移除指定格式的数据
+				files:返回已被拖放文件的列表
+			 */
+			/* 	target.ondrop = function(e) {
+					//在src.ondragstart添加此键值
+					var droppedID = e.dataTransfer.getData("Text");
+					var newElem = document.getElementById(droppedID).cloneNode(
+							false);
+					target.innerHTML = "";
+					target.appendChild(newElem);
+					e.preventDefault();
+				} */
+
+			/*############# 处理文件 */
+			target.ondrop = function(e) {
+				var files = e.dataTransfer.files;
+				for (var i = 0; i < files.length; i++) {
+					document.writeln(files[i].name+" "+files[i].type+" "+files[i].size+"<br/>");
+				}
+				e.preventDefault();
+			}
+		</script>
+	</div>
+
+</body>
+</html>

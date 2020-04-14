@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+</head>
+<body>
+	<p id="p1"></p>
+	<button id="b1">id=123</button>
+
+	<iframe name="nested" src="" width="90%" height="75px"></iframe>
+	<script type="text/javascript">
+		/* 获取window对象 
+		 document.defaultView;
+		 window;
+		 */
+		var ele = document.querySelector("#p1");
+		ele.innerHTML += window.outerWidth + "\n";//窗口高度，包括边框和菜单栏
+		ele.innerHTML += window.outerHeight + "\n";//窗口宽度，包括边框和菜单栏
+		ele.innerHTML += window.innerWidth + "\n";//获取窗口内容区域的宽度
+		ele.innerHTML += window.innerHeight + "\n";//获取窗口内容区域的高度
+		ele.innerHTML += window.screen.width + "\n";//屏幕宽度
+		ele.innerHTML += window.screen.height + "\n";//屏幕高度
+
+		/* 与窗口交互 
+		blur():窗口失去焦点
+		close():关闭窗口
+		focus():获得键盘焦点
+		print():提示用户打印界面
+		scrollBy(x,y):文档相对于当前位置进行滚动
+		scrollTo(x,y):滚动到指定位置
+		stop():停止载入文档
+		 */
+
+		/* 对用户进行提示 
+		alert(msg)
+		confirm(msg)
+		prompt(msg,val)
+		showModalDialog(url)
+		 */
+
+		/* ###################获取基本信息
+		 document:返回与此窗口关联的document对象
+		 location:提供当前文档地址的详细信息
+		 history:提供浏览器历史的访问
+			 back():浏览历史后退
+			 forward():浏览历史前进
+			 go(index):转到相对于当前文档的某个浏览历史位置，可以直接添加url
+			 length():浏览历史中的项目数量
+			 pushState(state,title,url)：浏览器历史添加一个条目,好处体现在用户导航到别处，然后返回时，能回原位置
+			 replaceState(state,title,url):替换浏览历史中的当前条目
+			 state()：返回浏览器历史中关联当前文档的状态数据
+		 */
+		var b1 = document.querySelector("#b1");
+		b1.onclick = function(e) {
+			//浏览历史添加条目
+			window.history.pushState("", "", "2.html?" + e.target.id);
+			//浏览历史替换条目
+			window.history.replaceState("", "", "2.html?" + e.target.id);
+		}
+
+		/* 在浏览器历史中保存复杂状态 */
+		var stateObj = {
+			name : "zhangsan",
+			age : 15
+		};
+		/* 状态对象关联到当前文档上 */
+		window.history.pushState(stateObj, "");
+		/* 用户返回到文档，2种方式获取状态对象 */
+		if (window.history.state) {
+			var obj = window.history.state;
+			alert(obj.name);
+			alert(obj.age);
+		}
+		/* 并非所有浏览器支持，采用监听获取 */
+		window.onpopstate = function(e) {
+			alert(e.name);
+			alert(e.age);
+		}
+
+		/* ##################使用跨文档消息传送 
+		defaultViem:返回活动文档的window
+		frames:返回文档内嵌iframe元素的window对象数组
+		opener:返回打开当前浏览上下文环境的window
+		parent：返回当前window的父window
+		self:返回当前文档的window
+		top：返回最上层的window
+		length:返回文档内嵌的iframe元素数量
+		index：返回指定索引位置内嵌文档的window
+		name:返回指定名称内嵌文档的window
+		 */
+		/* 发送消息 
+			window["nested"].postMessage("消息体", "脚本来源");
+		*/
+		/* 接受消息在另一个脚本里面采用监听器事件 
+		window.addEventListener("message", receiveMessage, false);
+		function receiveMessage(e) {
+			document.writeln(e.date);
+		}
+		*/
+		
+		
+		/* ##################计时器  */
+		var timeId=window.setTimeout(function(){alert(1)},5000);//使用超时计时器，只执行一次
+		var intervalId=window.setInterval(function(){alert(1)},100);//间隔计时器，无限次
+		window.clearTimeout(timeId);
+		window.clearInterval(intervalId);
+		
+		
+		
+		
+		
+		
+		
+	</script>
+
+
+
+
+
+</body>
+</html>

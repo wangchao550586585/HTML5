@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+<style type="text/css" title="core styles"
+	media="screen AND (min-width:500px),PRINT" type="text/css">
+#p1 {
+	color: blue !important;
+	border: thin red solid;
+	padding:7px !important;
+	float:left;
+}
+</style>
+</head>
+<body>
+	<p id="p1">指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+	<script type="text/javascript">
+	var p1 = document.querySelector("#p1");
+
+	/* 
+	 * 
+	 访问文档中可用的css样式表  document.styleSheets:
+	 href：链接样式表的href
+	 title
+	 type
+	 ownerNode：样式所定义的元素,link 或者style
+	
+	 使用媒体限制,CSSStyleSheet.media访问这些属性
+	 appendMedium(medium):添加新媒介到列表中
+	 appendMedium(medium):移除媒介
+	 item(pos):返回指定索引的媒介
+	 length:数量
+	 mediaText:返回media属性文本值
+	 */
+
+	var sheets = document.styleSheets;
+	for (var i = 0; i < sheets.length; i++) {
+		var newElem = document.createElement("p");
+		newElem.setAttribute("border", "1");
+		newElem.innerHTML += ("href=" + sheets[i].href + " title="
+				+ sheets[i].title + " type=" + sheets[i].type
+				+ " ownerNode=" + sheets[i].ownerNode.tagName +
+
+				" Media Count=" + sheets[i].media.length + " Media Text=" + sheets[i].media.mediaText);
+		p1.appendChild(newElem);
+		/* 输出整个media字符串 */
+		for (var j = 0; j < sheets[i].media.length; j++) {
+			document.writeln(sheets[i].media.item(j) + "--");
+		}
+	}
+	/* 禁用样式表 
+	 * 
+	 sheets[0].disabled=!sheets[0].disabled;
+	 */
+
+	/* CSSStyleSheet.cssRules属性会返回一个CSSRuleList对象
+	 CSSRuleList：允许访问样式表里的各种样式
+	 item(pos)：返回指定索引的CSS样式
+	 length:样式数量
+	 CSSStyleRule:表示一种css样式
+	 cssText:获取or设置样式的文本(包括选择器)
+	 parentStyleSheet:获取此样式所属的样式表
+	 selectorText:获取or设置样式的选择器文本
+	 style:获取一个代表具体样式属性的表
+	 */
+
+	sheets[0].cssRules.item(0).selectorText = "p";//火狐不支持
+
+	/* #########使用元素样式 
+	HTMLElement.style:获取CSSStyleDeclaration，元素的style属性所定义的样式属性.
+	 */
+	p1.style.cssText = "color:black";
+
+	/* 使用CSSStyleDeclaration对象,通过此对象可完全控制style属性
+	cssText:获取or设置样式文本
+	getPropertyCssValue(name):获取指定属性
+	getPropertyPriority(name):获取指定属性优先级
+	getPropertyValue(name):获取字符串形式的指定值
+	item(pos):item(1)
+	length
+	parentRule：如果存在样式规则，就获取他
+	removeProperty(name):移除属性
+	setProperty(name,value,priority):设置属性值和优先级
+	style:指定or设置css属性的便捷属性
+	 */
+
+	sheets[0].cssRules.item(0).style.paddingTop = "10px";
+	document.writeln(p1.style.paddingTop);
+	document.writeln(sheets[0].cssRules.item(0).style.paddingTop);
+
+	p1.style.setProperty("background-color", "lightgray");
+	document.writeln(p1.style.getPropertyValue("background-color"));
+
+	var style = sheets[0].cssRules[0].style;
+	for (var i = 0; i < style.length; i++) {
+		document.writeln(style[i] + "=" + style.getPropertyValue(style[i])
+				+ "<br/>");
+		document.writeln(style[i] + "="
+				+ style.getPropertyPriority(style[i]) + "<br/>");
+	}
+	document.writeln("<hr/>")
+	/* 使用细粒度的CSS DOM对象 
+	cssStyleDeclaration.getPropertyCSSValue获取CSSPrimitiveValue
+	cssText
+	getFloatValue()
+	setFloatValue()
+	getStringValue()
+	setStringValue()
+	getRGBColorValue()
+	primitiveType:获取值得单位类型
+	
+	CSS_PX,CSS_CM,CSS_NUMBER(单位数字),CSS_EMS(单位em),CSS_S(单位秒),CSS_MS(单位毫秒)...等
+	 */
+
+	for (var i = 0; i < style.length; i++) {
+		var val = style.getPropertyCSSValue(style[i] );
+		if (val == null || style[i] == "")
+			continue;
+		var type = val.primitiveType;
+		if (type == CSSPrimitiveValue.CSS_PX) {
+			document
+					.writeln(style[i] + "="
+							+ val.getFloatValue(CSSPrimitiveValue.CSS_PX)
+							+ "<br/>");
+			document
+					.writeln(style[i] + "="
+							+ val.getFloatValue(CSSPrimitiveValue.CSS_PT)
+							+ "<br/>");
+			document
+					.writeln(style[i] + "="
+							+ val.getFloatValue(CSSPrimitiveValue.CSS_IN)
+							+ "<br/>");
+		} else if (type == CSSPrimitiveValue.CSS_RGBCOLOR) {
+			var color = val.getRGBColorValue();
+			document.writeln(style[i] + "=" + color.red.cssText + " "
+					+ color.green.cssText + " " + color.blue.cssText
+					+ "<br/>");
+		} else {
+			document.writeln(style[i] + "=" + val.cssText + "<br/>");
+		}
+
+	}
+	
+	document.writeln("<hr/>")
+		/* ###########使用计算样式 
+		document.defaultView.getComputedStyle:包含浏览器用来显示元素的所有属性细节，以及各个属性值，无法通过他修改样式
+		*/
+		
+		var  p2 = document.querySelector("#p1");
+		var style2=document.defaultView.getComputedStyle(p2);
+		document.writeln(style2.length + "<br/>");
+		document.writeln(style2.getPropertyValue("margin-top") + "<br/>");
+		document.writeln(style2.getPropertyValue("font-size")+ "<br/>");
+	
+	
+			
+		
+	</script>
+
+
+
+
+</body>
+</html>

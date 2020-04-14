@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+<style type="text/css">
+.newClass {
+	border: thin solid red;
+}
+</style>
+</head>
+<body>
+	<p id="p1" data-age="15">指定对象作为表格标题组。类同于html标签（CSS2）
+		table-footer-group： 指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+	<p id="p2"></p>
+	<p id="p3">指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+	<script type="text/javascript">
+	
+	/* ##################使用元素对象，以下11个均可设置or获取 */
+		var ele = document.querySelector("#p1");
+		document.writeln(ele.id + "</br>");
+		document.writeln(ele.dir + "</br>");
+		document.writeln(ele.lang + "</br>");
+		document.writeln(ele.hidden + "</br>");
+		document.writeln(ele.disable + "</br>");
+		document.writeln(ele.checked + "</br>");
+		document.writeln(ele.className + "</br>");
+		document.writeln(ele.title + "</br>");
+		document.writeln(ele.spellcheck + "</br>");
+		document.writeln(ele.tabIndex + "</br>");
+
+		document.writeln(ele.tagName + "</br>");
+		
+		/* ##################使用类 */
+		/* ele.className+=" newClass"; *//* 添加空格，浏览器期望获得由空格间隔的类列表 */
+		/* 
+		获取or设置元素所属的类列表，
+		DOMTokenList常见方法 
+			add(class)
+			contains(class)
+			length
+			remove(class)
+			toggle(class):类存在移除，不存在添加 
+		 */
+		var classList = ele.classList;
+		classList.toggle("newClass");
+		/* 遍历类名 */
+		for (var i = 0; i < classList.length; i++) {
+			document.writeln(classList[i]);
+		}
+
+		/* ###########与HTML属性相关的属性和方法 
+		attributes:返回应用到元素上的属性
+		dataset:返回以data-开头的属性
+		getAttribute(name)
+		setAttribute(name,value)
+		hasAttribute(name)
+		removeAttribute(name)
+		 */
+		ele.setAttribute("title", "red");
+		document.writeln(ele.getAttribute("title"));
+		document.writeln(ele.hasAttribute("lang"));
+
+		for ( var attr in ele.dataset) {
+			document.writeln(attr);
+		}
+		document.writeln(ele.dataset['age']);
+
+		var atts = ele.attributes;
+		for (var i = 0; i < atts.length; i++) {
+			document.writeln(atts[i].name + "=" + atts[i].value);
+		}
+
+		/* ###################使用Text对象 */
+
+		/*	<p>和<b>啊</b>啊</p>
+			P和b元素自身有一个HTMLElement对象 
+			p元素有3对象，Text,b,Text。
+			b有1个对象Text
+			
+			appendData(string)
+			data
+			deleteData(offset,count)
+			insertData(offset,string)
+			length
+			replaceData(offset,count,string)
+			splitText(number)
+			substringData(offset,count)
+			wholeText
+		 */
+		var textElem = ele.firstChild;
+		document.writeln(textElem.length + "------" + textElem.wholeText);
+
+		/*############## 修改模型 */
+		/* DOM操作成员 */
+		ele.appendChild(document.createElement("b")).appendChild(
+				document.createTextNode("哈哈"));
+		var lastEle = ele.lastChild;
+		var newEle = lastEle.cloneNode(true);//true表示拷贝属性
+		lastEle.parentNode.removeChild(lastEle);
+
+		ele.appendChild(newEle);
+
+		/* move */
+		var p2 = document.querySelector("#p2");
+		p2.appendChild(newEle);
+
+		/* compare:比较是否是同一元素 */
+		document.writeln(lastEle.isSameNode(newEle));
+
+		/* equal：对象是否相同，具有相同类型，相同属性，子元素顺序一致，元素则相等 */
+		document.writeln(lastEle.isEqualNode(newEle));
+
+		/* 
+		outerHTML:返回元素与所有子元素的html
+		innerHTML：返回元素html */
+		document.writeln(newEle.outerHTML);
+		document.writeln(newEle.innerHTML);
+
+		/*替换html片段*/
+		/* 	newEle.innerHTML = '呵呵'; */
+		p2.outerHTML = '<b>啊哈</b><b>啊哈</b>';
+
+		/* 插入html片段 */
+		ele.insertAdjacentHTML("afterbegin", "<a>不要呵呵1</a>");
+		ele.insertAdjacentHTML("beforeend", "<a>不要呵呵4</a>");
+		ele.insertAdjacentHTML("afterend", "<a>不要呵呵2</a>");
+		ele.insertAdjacentHTML("beforebegin", "<a>不要呵呵3</a>");
+
+		/* 文本块插入元素 */
+		var ele3 = document.querySelector("#p3");
+		/* 第一个text元素位移3位。分割为一个元素 */
+		ele3.firstChild.splitText(3);
+		/* 从第二个元素开始，分割3位。并获取前面兄弟节点 */
+		var newText = ele3.childNodes[1].splitText(3).previousSibling;
+		/* insertBefore() 方法在您指定的已有子节点之前插入新的子节点。 */
+		ele3.insertBefore(document.createElement("b"), newText).appendChild(
+				newText);
+	</script>
+
+
+
+</body>
+</html>

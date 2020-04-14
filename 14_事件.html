@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+</head>
+<body>
+	使用简单时间处理器 onmouseover:光标移动到元素占据屏幕区域触发。 onmouseout:离开时触发
+	<br />
+	<p onmouseover="this.style.background='red'; this.style.color='blue'"
+		onmouseout="this.style.removeProperty('background'); this.style.removeProperty('color')">
+		指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+
+	<p onmouseover="handleMouseOver(this)"
+		onmouseout="handleMouseOut(this)">指定对象作为表格标题组。类同于html标签（CSS2）
+		table-footer-group： 指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+
+	<script type="text/javascript">
+		function handleMouseOver(elem) {
+			elem.style.background = 'red';
+			elem.style.color = 'blue';
+		}
+		function handleMouseOut(elem) {
+			elem.style.removeProperty('background');
+			elem.style.removeProperty('color');
+		}
+	</script>
+
+
+	<br /> ################################
+	<br />
+	<!-- 使用DOM和事件对象 -->
+	<p>指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+	<script type="text/javascript">
+		var pElems = document.querySelectorAll("p");
+
+		for (var i = 0; i < pElems.length; i++) {
+			pElems[i].onmouseover = handleMouseOver2;
+			pElems[i].onmouseout = handleMouseOut2;
+		}
+		function handleMouseOver2(elem) {
+			elem.target.style.background = 'red';
+			elem.target.style.color = 'blue';
+		}
+		function handleMouseOut2(elem) {
+			elem.target.style.removeProperty('background');
+			elem.target.style.removeProperty('color');
+		}
+	</script>
+
+
+	<br /> #####################
+	<br /> 绑定or解绑监听事件
+	<p id="p1">指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+	<button id="b1">清除效果</button>
+	<script type="text/javascript">
+		var p1 = document.querySelector("#p1");
+		p1.addEventListener("mouseover", handleMouseOver2);
+		p1.addEventListener("mouseout", handleMouseOut2);
+
+		document.querySelector("#b1").onclick = function() {
+			p1.removeEventListener("mouseout", handleMouseOut2);
+		}
+	</script>
+
+
+
+	<br /> ##############################
+	<br />
+	<!-- event对象函数与属性 
+	type:事件类型
+	elem：事件对象
+	elem.target：获取事件目标
+	-->
+	<p id="p2">指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+	<script type="text/javascript">
+		var p2 = document.querySelector("#p2");
+		p2.onmouseover = handleMouseEvent;
+		p2.onmouseout = handleMouseEvent;
+
+		function handleMouseEvent(e) {
+			if (e.type == "mouseover") {
+				e.target.style.background = 'red';
+				e.target.style.color = 'blue';
+			} else {
+				e.target.style.removeProperty('background');
+				e.target.style.removeProperty('color');
+			}
+		}
+	</script>
+
+
+
+	<br /> ###########################
+	<br /> 事件流: 一个事件的生命周期包括3阶段：捕捉(capture)，目标(target)，冒泡(bubbling)。
+	<p id="p3">
+		指定对象作为表格标题组。类同于html标签<span id="s1">（CSS2） table-footer-group：
+			指定对象作为表格脚注组。</span>类同于html标签（CSS2）
+	</p>
+	<script type="text/javascript">
+		var s1 = document.querySelector("#s1");
+		s1.addEventListener("mouseover", handleMouseEvent2);
+		s1.addEventListener("mouseout", handleMouseEvent2);
+
+		function handleMouseEvent2(e) {
+			if (e.type == "mouseover") {
+				e.target.style.background = 'red';
+				e.target.style.color = 'blue';
+			} else {
+				e.target.style.removeProperty('background');
+				e.target.style.removeProperty('color');
+			}
+		}
+
+		/* 
+		第三个参数为true：在捕捉阶段接受后代元素的事件
+		mouseover|mouseout事件被触发后，浏览器会从HTML文档的根结点起步-->触发事件的元素。,查找对该事件第三参数为true的元素，执行方法
+		对层级的每一个元素，检查是否对捕捉到的事件感兴趣
+		
+		Event.CAPTURING_PHASE:此事件处于捕捉状态
+		AT_TARGET:事件处于目标状态
+		BUBBLING_PHASE:冒泡阶段
+		
+		第三个参数为false：冒泡阶段捕捉
+		浏览器会从触发事件的元素开始向上查找-->HTML文档的根结点结束,查找对该事件第三参数为false的元素，执行方法 
+		 */
+		var p3 = document.querySelector("#p3");
+		p3.addEventListener("mouseover", hadleDescendantEvent, true);
+		p3.addEventListener("mouseout", hadleDescendantEvent, true);
+		function hadleDescendantEvent(e) {
+			var type = e.type;
+			if (type == "mouseover" && e.eventPhase == Event.CAPTURING_PHASE) {
+				/* target：目标元素，子类
+				currentTarget:导致函数被调用的函数 ，父类 */
+				e.target.style.border = "thick solid red";
+				e.currentTarget.style.border = "thick solid black";
+			} else if (type == "mouseout"
+					&& e.eventPhase == Event.CAPTURING_PHASE) {
+				e.target.style.removeProperty("border");
+				e.currentTarget.style.removeProperty("border");
+			}
+			/* 确保调用当前元素上注册的所有事件监听器 
+			e.stopPropagation();
+			 忽略任何未触发的监听器 
+			e.stopImmediatePropagation(); */
+		}
+
+		p3.addEventListener("mouseover", hadleBubbleEvent, false);
+		p3.addEventListener("mouseout", hadleBubbleEvent, false);
+		function hadleBubbleEvent(e) {
+			var type = e.type;
+			if (type == "mouseover" && e.eventPhase == Event.BUBBLING_PHASE) {
+				e.target.style.textTransform = "uppercase";
+			} else if (type == "mouseout"
+					&& e.eventPhase == Event.BUBBLING_PHASE) {
+				e.target.style.textTransform = "none";
+			}
+		}
+	</script>
+	<br /> ####################
+	<br />
+	<a href="http://www.baidu.com">点击这里</a>
+	<script type="text/javascript">
+		var a = document.querySelector("a");
+		a.addEventListener("click", handClick, false);
+		function handClick(e) {
+			if (!confirm("你想跳转到" + e.target.href + "?")) {
+				//使用可撤销事件，清除默认行为
+				e.preventDefault();
+				//获取是否调用过preventDefault方法
+				alert(e.defaultPrevented);
+			}
+		}
+	</script>
+
+
+	<br />
+	<br /> ####################使用HTML事件
+	<p id="p4">指定对象作为表格标题组。类同于html标签（CSS2） table-footer-group：
+		指定对象作为表格脚注组。类同于html标签（CSS2）</p>
+	<input type="text" id="i1" autofocus="autofocus" />
+
+	<script type="text/javascript">
+		/* 文档事件 readystatechange:值改变时触发*/
+
+		/* 窗口事件 
+		onabort
+		onafterprint
+		onerror
+		onhashchange
+		onload
+		onpopstate
+		onresize
+		onunload
+		 */
+
+		/* 使用鼠标事件 */
+		var p4 = document.querySelector("#p4");
+		p4.addEventListener("mouseover", hadleBubbleEvent2);
+		p4.addEventListener("mouseout", hadleBubbleEvent2);
+		function hadleBubbleEvent2(e) {
+			var type = e.type;
+			if (type == "mouseover" && e.eventPhase == Event.BUBBLING_PHASE) {
+				e.target.style.textTransform = "uppercase";
+			} else if (type == "mouseout"
+					&& e.eventPhase == Event.BUBBLING_PHASE) {
+				e.target.style.textTransform = "none";
+			}
+			/* 	document.writeln("事件触发时鼠标相对于元素的x坐标："+e.clientX+"<br/>");
+				document.writeln("事件触发时鼠标相对于元素的y坐标："+e.clientY+"<br/>");
+				document.writeln("点击那个键，0主键，1中键，2次键or右键："+e.button+"<br/>"); */
+		}
+
+		/* 使用键盘焦点事件 
+		focusin/focusout:即将获得焦点/即将失去焦点, 
+		FocusEvent对象代表这些事件，
+		在Event对象的核心功能上扩展了relatedTarget属性：元素即将获得or失去焦点。
+		 */
+		var i1 = document.querySelector("#i1");
+		i1.onfocus = handleFocusEvent;
+		i1.onblur = handleFocusEvent;
+		function handleFocusEvent(e) {
+			if (e.type == "focus") {
+				e.target.style.backgroundColor = "lightgray";
+				e.target.style.border = "thick double red";
+			} else {
+				e.target.style.removeProperty("background-color");
+				e.target.style.removeProperty("border");
+			}
+		}
+
+		/* 使用键盘事件 
+		keydown
+		keypress
+		keyup
+		keyboardEvent对象代表这些事件，在Event对象的核心功能上扩展如下属性：
+			char:返回按键所代表的字符
+			key：返回所按的键
+			ctrlKey/shiftKey/altKey：按键时按ctrl/shift/alt返回true
+			repeat:一直处于按下状态返回true
+		 */
+		i1.onkeyup = handleKeyboardEvent;
+		function handleKeyboardEvent(e) {
+			//document.writeln(e.keyCode + " " + String.fromCharCode(e.keyCode));
+		}
+
+		/* 使用表单事件 
+		submit,reset
+		 */
+	</script>
+
+
+
+
+
+
+
+</body>
+</html>

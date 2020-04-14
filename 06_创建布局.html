@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+<style type="text/css">
+/* ############### 定位内容 */
+/* 定位属性
+position：设置定位方法
+	relative：应用top,right属性
+	absolute：应用top,right属性，根据祖先元素位置来定位
+	fixed:固定,浏览器滚动,固定显示
+left/right/top/buttom：定位元素设置偏移量,设置此值时指定相对于position属性的元素的偏移量
+z-index:层叠顺序 ,大的覆盖小的。默认0
+*/
+#p1 {
+	z-index: 1;
+	width: 80px;
+	height: 20px;
+	background-color: blue;
+	left: 150px;
+	top: 20px;
+	position: relative;
+}
+
+#p2 {
+	z-index: 2;
+	width: 80px;
+	height: 200px;
+	background-color: red;
+	left: 150px;
+	top: 10px;
+	position: relative;
+}
+
+/* 创建多列布局 
+column-count
+column-fill
+column-gap
+column-rule
+column-rule-color
+column-rule-style
+column-rule-width
+columns
+column-span
+column-width：使用列宽，浏览器会添加or删除列数维持指定列宽
+*/
+#p3 {
+	column-width: 25em;
+	column-count: 3;
+	column-fill: balance;
+	column-rule: medium solid black;
+	column-gap: 1.5em;
+}
+/* ################弹性盒子 
+display:flex-align/flex-direction/flex-order/flex-pack
+弹性盒子属性:
+box-align:如果内容元素高度小于容器高度，告诉浏览器如何处理
+box-flex:指定元素的可伸缩性，应用于弹性盒容器内的元素，告诉浏览器那些元素尺寸是弹性的。不能使用float属性
+		如果a设置为1，b设置为2.则b是a的2倍
+box-pack：如果可伸缩元素达到最大尺寸，告诉浏览器如何分配
+*/
+#p7 {
+	border: medium solid blue;
+	height: 200px;
+	width: 900px;
+	max-width: 1200px;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -o-box;
+	display: -ms-box;
+	-webkit-box-align: end;
+	-moz-box-align: end;
+	-o-box-align: end;
+	-ms-box-align: end;
+	-webkit-box-pack: justify;
+	-moz-box-pack: justify;
+	-o-box-pack: justify;
+	-ms-box-pack: justify;
+	-moz-box-align: end;
+	-o-box-align: end;
+	-ms-box-align: end;
+	display: -webkit-box;
+	max-width: 1200px;
+}
+
+#p7>p {
+	width: 200px;
+	height: 150px;
+	border: medium solid red;
+}
+
+#p4 {
+	-webkit-box-flex: 3;
+	-moz-box-flex: 3;
+	-o-box-flex: 3;
+	-ms-box-flex: 3;
+}
+
+#p5 {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-o-box-flex: 1;
+	-ms-box-flex: 1;
+}
+
+/* 创建表格布局 */
+/* 跟表格相关的display属性的值
+table:类似table
+inline-table:类似table，创建行内元素
+table-caption:类似caption
+table-column:类似column
+table-column-group:类似colgroup
+table-header-group:类似thead
+table-row-group:类似tbody
+table-footer-group:类似tfoot
+table-row:类似tr
+table-cell：类似td */
+#table {
+	display: table;
+}
+
+#table .row {
+	display: table-row;
+	background-color: aqua;
+}
+
+#table .row p {
+	display: table-cell;
+	border: medium solid blue;
+	padding: 15px;
+}
+</style>
+</head>
+<body>
+	<div id="p1">123</div>
+	<div id="p2">哈哈哈哈哈</div>
+	<p id="p3">语法： columns：[ column-width ] || [ column-count ]
+		默认值：看每个独立属性 取值： [ column-width ]： 设置或检索对象每列的宽度 [ column-count ]：
+		设置或检索对象的列数 说明： 设置或检索对象的列数和每列的宽度。复合属性 对应的脚本特性为columns。 写法： 内核类型 写法
+		Webkit(Chrome/Safari) -webkit-columns Gecko(Firefox) -moz-columns
+		Presto(Opera) columns Trident(IE) columns W3C columns</p>
+	<div id="p7">
+		<p id="p4">start： 设置弹性盒模型对象的子元素从开始位置对齐 center： 设置弹性盒模型对象的子元素居中对齐
+			end： 设置弹性盒模型对象的子元素从结束位置对齐</p>
+		<p id="p5">设置或检索弹性盒模型对象的子元素的对齐方式。查看其兄弟属性box-pack，两者的效果正好（相反）互补
+			box-align的对齐方式受box-orient影响；</p>
+		<p id="p6">single： 弹性盒模型对象的子元素只在一行内显示 multiple：
+			弹性盒模型对象的子元素超出父元素的空间时换行显示 说明： 设置或检索弹性盒模型对象的子元素是否可以换行显示。</p>
+	</div>
+
+	<div id="table">
+		<div class="row">
+			<p>none： 隐藏对象。与visibility属性的hidden值不同，其不为被隐藏的对象保留其物理空间 inline：
+				指定对象为内联元素。</p>
+			<p>block： 指定对象为块元素。 list-item： 指定对象为列表项目。 inline-block：
+				指定对象为内联块元素。（CSS2）</p>
+		</div>
+		<div class="row">
+			<p>table： 指定对象作为块元素级的表格。类同于html标签（CSS2） inline-table：
+				指定对象作为内联元素级的表格。类同于html标签（CSS2） table-caption：
+				指定对象作为表格标题。类同于html标签<（CSS2）</p>
+			<p>table-cell： 指定对象作为表格单元格。类同于html标签 table-row：
+				指定对象作为表格行。类同于html标签</p>
+		</div>
+	</div>
+
+
+</body>
+</html>

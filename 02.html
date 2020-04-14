@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html5</title>
+
+</head>
+<body>
+
+	<!-- #############################组织内容 -->
+	<a href="#fruit"> 点击此链接，会查找id属性值为fruit的元素。</a>
+	<p id="fruit">段落，默认块级元素</p>
+
+	<b>加粗</b>
+	<br />
+	<em>斜体，加以强调</em>
+	<br />
+	<i>同em元素,表示外文词or科技术语</i>
+	<br />
+	<s>表示一段文字不在正确</s>
+	<br />
+	<strong>表示一段重要的文字，同b元素</strong>
+	<br />
+	<u>添加下划线</u>
+	<br />
+	<small>小号字体内容，免责声明or澄清声明</small>
+	<br /> 强制换行
+	<br /> html5新增，告诉浏览器最适合在什么地方拆分
+	<wbr>
+	<br />
+	<!-- 表示输入输出 -->
+	<code>计算机代码片段</code>
+	<br />
+	<var>编程语境中表示变量</var>
+	<br />
+	<samp>程序or计算机系统的输出</samp>
+	<br />
+	<kbd>用户输入</kbd>
+	<br />
+
+	<!-- 标题引用，引文，定义，缩写，范围科学or学术领域 -->
+	<abbr title="title表示该缩写代表的完整词语">缩写</abbr>
+	<br />
+	<dfn title="所定义的术语">定义术语，也可以用来解释一个词or短语的含义的句子中的词,如果包含abbr元素，abbr则为要定义的术语</dfn>
+	<br />
+	<q cite="指定来源文章的url">引用来自他人的内容</q>
+	<br />
+	<cite>引用作品(图书，文章，电影，诗歌)的标题</cite>
+	<br />
+
+
+	<!-- 使用语言元素 -->
+	<!-- 注音符号，帮助读者掌握表意语句文字正确发音的符号，位于文字上方or右方-->
+	<ruby>
+		表示一段包含注音符号的文字,h5新增
+		<rp>供不支持注音符号的浏览器显示注音符号前后的括号，rp元素内容会被忽略，只显示rt元素内容
+			<rt>(标记注音符号)</rt>
+		</rp>
+	</ruby>
+	<br />
+
+	<bdo dir="rtl">撇开默认文字方向设置，明确指定其内容中文字方向,必须添加rtl or ltr元素表示左右翻转显示</bdo>
+	<bdo dir="ltr">撇开默认文字方向设置，明确指定其内容中文字方向</bdo>
+	<br />
+
+
+	<bdi>一段出于文字方向考虑而与其他内容隔开的文字,h5新增,针对颠倒文字内容顺序的采用此标签</bdi>
+	<p>با على قدم المساواة:10apples</p>
+	<br />
+
+	<!-- 其他文本元素 -->
+	<mark>突出显示文本</mark>
+	<br />
+
+	<ins>添加的文字，cite指定解释添加or删除相关文字原因的文档的url,datetime设置修改时间</ins>
+	<br />
+	<del>删除的文字</del>
+	<br />
+
+	<time datetime="1984-12-07 15:00">如果pubdate属性存在，则time元素表示的是整个html文档或离该元素最近的article元素的发布时间，datetime属性RFC3329规定格式指定日期or时间</time>
+
+	<blockquote cite="http://wwww.baidu.com">
+		包含引用的内容块,忽略格式
+		<hr>
+		哈哈
+		<hr />
+	</blockquote>
+
+	<!-- dl:表示说明列表 -->
+	<dl>
+		<dt>表示说明列表中的术语</dt>
+		<dd>表示说明列表中的定义</dd>
+	</dl>
+
+
+	<!-- 插图 -->
+	<figure>
+		<figcaption>插图标题</figcaption>
+		<code>public static void main(String[]arge){}</code>
+	</figure>
+
+
+	<!-- #######################文档分节################### -->
+
+	<!-- hgroup元素：将几个标题元素作为一个整体处理,h5新增 -->
+	<hgroup>
+		<h1>标题1</h1>
+		<h2>标题2</h2>
+	</hgroup>
+	<h2>标题3</h2>
+	<h3>标题4</h3>
+
+
+	<!-- 包含列入文档大纲or目录中的内容，包含多个段落or一个标题 ,明确生成节，并且与标题分开。h5新增-->
+	<section>
+		<hgroup>
+			<h1>哈哈呵呵</h1>
+			<h2>你们不好</h2>
+		</hgroup>
+		你们不好吗？
+		<section>
+			<h1>哈哈</h1>
+			你们好吗？
+			<section>
+				<h1>哈哈2</h1>
+				你们好吗2?
+			</section>
+		</section>
+	</section>
+
+	<!--header:一节首部，包含所有出现在首部的东西，通常包括一个标题元素 or hgroup元素 or 导航栏 h5新增
+		footer:header配套元素,一节尾部，包含总结信息，作者介绍，版权信息，到相关内容链接。 h5
+	-->
+	<header> 头部 </header>
+	<footer>尾部</footer>
+
+	<!-- nav:包含到其他页面or同一页面的其他部分链接,作用：规划文档主要导航区域 ,h5-->
+	<nav>
+		<a href="">哈哈</a> <a href=""> 哈哈</a>
+	</nav>
+
+	<!-- 代表html中一段独立成篇的内容,如一篇文章，h5 -->
+	<article>
+		<h1>标题</h1>
+		怪我咯
+	</article>
+
+	<!-- 表示跟周边内容沾一点边的内容，如背景信息，相关文章链接. h5 -->
+	<aside>
+		<h1>哈哈</h1>
+		<section>
+			呵呵
+			<ol>
+				<li>1</li>
+				<li>2</li>
+			</ol>
+		</section>
+	</aside>
+
+	<!-- 表示文档or article元素联系信息 ,为body子元素时表示联系信息为整个文档 h5-->
+	<header>
+		<hgroup>
+			<h1>标题1</h1>
+			<h2>标题2</h2>
+		</hgroup>
+		<address>
+			请联系我<a href="">请联系我</a>
+		</address>
+		<nav>
+			<h1>不要哭</h1>
+			<ul>
+				<li>我没哭</li>
+				<li>我没哭2</li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- 详情区域，details:用户可以展开它以了解关于某主题的更多详情 
+	summary:为该区域生成一个说明标签 or 标题
+	h5-->
+	<details>
+		<summary>我是标题</summary>
+		你不是标题
+	</details>
+
+	<!-- #####################表格元素 -->
+	<!-- thead:标记表格标题行 -->
+	<!-- tbody：表示构成表格主体的全体行，大多数浏览器默认添加 -->
+	<!-- headers：可被设置为一个或多个th单元格的id属性值 -->
+	<!-- colgroup:代表一组列,导入样式后，不规则的单元格被计入起始列
+		span:几行
+		col：代表列组中一列(未使用span元素)
+	 -->
+	<table border="1">
+		<caption>这个属性定义表格标题</caption>
+		<colgroup span="2" />
+		<colgroup span="1" />
+		<colgroup>
+			<col span="2" />
+			<col />
+		</colgroup>
+		<thead>
+			<tr>
+				<th id="1">标题1</th>
+				<th id="2">标题1</th>
+				<th id="3">标题1</th>
+				<th id="4">标题1</th>
+				<th id="5">标题1</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th id="one">标题1</th>
+				<td headers="1 one">内容</td>
+				<td headers="2 one">内容</td>
+				<td headers="3 one">内容</td>
+				<td headers="4 one">内容</td>
+			</tr>
+			<tr>
+				<th id="two">标题1</th>
+				<td headers="1 two">内容</td>
+				<td headers="2 two">内容</td>
+				<td headers="3 two">内容</td>
+				<td headers="4 two">内容</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>表脚</th>
+				<th>表脚</th>
+				<th>表脚</th>
+				<th>表脚</th>
+				<th>表脚</th>
+			</tr>
+		</tfoot>
+	</table>
+
+	<!-- ##############################表单 -->
+	<!-- 
+enctype：指定浏览器发送给服务器的数据采用的编码方式
+	application/x-www-form-urlencoded：默认，url编码
+	multipart/form-data：文件上传到服务器
+	text/plan:浏览器不同，方式也不同。chrome采用application/x-www。
+autocomplete:默认on，允许浏览器回显。
+target:指定提交后，返回的页面形式
+	_blank:新开窗口or标签页
+	_parent:显示父窗框组中
+	_self:默认，当前窗口
+	_top:顶层窗口
+	<frame>:指定窗口
+label:为表单每一个元素提供说明,使用for与input元素中id值相同的标签相关联
+autofocus:自动聚焦到某个标签,设置多个，默认最后一个
+disabled:禁用标签
+fieldset：对表单元素编组
+	legend:说明标签
+	disabled:禁用一组标签
+button:
+	submit:提交(default),具备一些特殊属性，用来补充or覆盖form元素设置
+		h5新增
+		form:指定按钮相关联的表单
+		formaction:覆盖form的action属性
+		formenctype:同enctype
+		formmethod:同method
+		formtarget:同target
+		formnovalidate:同novalidate，表示是否执行客户端数据有效性检查
+	reset:重置
+	button:无效果
+引用表单外的元素：form元素的id属性值与表单外的input or  button form属性一致即可
+ -->
+	<form id="form1" action="http://www.baidu.com" method="post"
+		autocomplete="off" >
+		<fieldset disabled="disabled">
+			<legend>这是用户信息组</legend>
+			<p>
+				<label for="username">用户名：<input id="username"
+					autofocus="autofocus" disabled="disabled" autocomplete="off" /></label>
+			</p>
+			<p>
+				<label for="password"> 密码：<input id="password"
+					autocomplete="off" /></label>
+			</p>
+		</fieldset>
+		<fieldset>
+			<legend>这是兴趣爱好组</legend>
+			<p>
+				<label for="hobby1">爱好1：<input id="hobby1" /></label>
+			</p>
+			<p>
+				<label for="hobby2">爱好2：<input id="hobby2" /></label>
+			</p>
+		</fieldset>
+		<button type="button" formmethod="post"
+			formenctype="application/x-www-form-urlencoded">提交</button>
+	</form>
+	<button type="submit" form="form1">button</button>
+
+
+	<!-- ################定制input元素 -->
+	<form action="" id="fruit">
+		<p>
+			<laber> 用户名:<input maxlength="100" size="15"
+				placeholder="提示用户这里应该输入什么类型数据" disabled="disabled" /></laber>
+		</p>
+		<p>
+			<laber>密码:<input value="123456" readonly="readonly" /></laber>
+		</p>
+		<button>提交</button>
+	</form>
+	<!-- datalist:提供一些值，帮助用户输入需要的数据,不同的input元素使用此方式有差异，如text型input元素，
+		datalist元素提供的值以自动补全建议值的方式呈现。提供给用户的值用option指定,input元素使用list属性即可
+		 -->
+	<input list="fruitlist" form="fruit" />
+	<datalist id="fruitlist">
+		<option value="apple" label="love apple" />
+		<option value="oranges">this is oranges</option>
+		<option value="banana" />
+	</datalist>
+
+	<!-- 获取数值 -->
+	<input form="fruit" type="number" step="1" min="0" max="100" value="1" />
+	<input form="fruit" type="range" step="1" min="0" max="100" value="1" />
+	<!-- 获取有规定格式的字符串 -->
+	<input form="fruit" type="email" placeholder="wangchao@123.com" />
+	<input form="fruit" type="tel" placeholder="192-111-111" />
+	<input form="fruit" type="url" />
+	<!-- 获取时间 
+	datetime   :获取世界时间日期，包括时区信息，2011-07-19T14:59:59:4991Z
+	date      ：获取本地日期，2011-07-19
+	month      ：获取年月信息，2011-07
+	time      ：获取当前时间,14:59:59:499
+	week      ：获取当前日期 2011-W30
+	T:时间段开始
+	Z：ZuLu时区
+	-->
+	<input form="fruit" type="datetime" />
+	<input form="fruit" type="datetime-local" />
+	<input form="fruit" type="date" />
+	<input form="fruit" type="month" />
+	<input form="fruit" type="time" />
+	<input form="fruit" type="week" />
+	<!-- 颜色 -->
+	<input form="fruit" type="color" />
+	<!-- 获取搜索用词 -->
+	<input form="fruit" type="search" />
+	<!-- 图像按钮和分区响应图 
+	点击图片后会提交，可以得到点击位置的坐标信息
+	-->
+	<input type="image" src="" value="" />
+
+	<!-- 文件按钮，支持多部件 -->
+	<input type="file" multiple="multiple">
+
+	<!-- ###############################其他表单元素及输入校验 -->
+	<!-- size:最多显示几个
+		multiple：多选
+	在select中建立结构
+	optgroup：对option元素分组，
+		laber：为整组提供标题
+		disabled：阻止组内任何选项	
+	 -->
+	<select size="3" multiple="multiple" style="vertical-align: top">
+		<optgroup label="3">
+			<option selected="selected">1</option>
+			<option label="3">2</option>
+		</optgroup>
+		<optgroup label="4" disabled="disabled">
+			<option>3</option>
+			<option>4</option>
+		</optgroup>
+	</select>
+
+	<!-- wrap:控制用户输入的文字中插入换行符的方式
+	hard:提交表单时会插入换行符
+ 	-->
+	<textarea rows="3" cols="30" wrap="hard">
+			看书记打发时间开飞机上蜡防静电卡死机发动机klsdf
+			卡萨丁放假啦可使肌肤的尽快
+			</textarea>
+
+	<!-- 表示计算结果 -->
+	<output>11</output>
+
+	<!-- 生成公钥私钥,公钥给服务器，私钥浏览器保留并存入用户的密钥仓库 -->
+	<keygen />
+	<!-- required:必须输入
+		 min/max: 限制大小
+		 formnovalidate/novalidate:不经过验证就能提交表单
+	 -->
+	<form action="" novalidate="novalidate">
+		<input type="text" required="required" /> <input type="number"
+			min="10" max="100" /> <input type="email" pattern="^*+@qq.com%"
+			required="required" />
+		<button formnovalidate="formnovalidate"></button>
+	</form>
+
+	<!-- ################嵌入内容 -->
+	<a href="http://baidu.com"><img alt="" src="" />在图像上点击的位置会附到url上 </a>
+	<!-- map:点击不同区域让浏览器导航到不同url上 
+			area:表示图形上可被点击的区域
+	-->
+	<img alt="" src="" usemap="" />
+	<map name="myMap">
+		<area alt="" href="" shape="rect" coords="">
+	</map>
+
+	<!-- iframe:嵌入另一张html文档 
+			src:iframe开始应该载入并显示的url
+			srcdoc：定义用户内嵌的html文档
+			seamless:指示浏览器把iframe内容显示的像html文档一个整体组成部分
+			sandbox:对html限制，如果不带任何值，会禁用
+				allow-forms:启用表单
+				allow-script:启用脚本
+				allow-top-navigation:允许链接指向顶层的浏览上下文，作用替换当前文档，or创建新页面
+				allow-same-origin:允许iframe的内容被视为与文档其余部分拥有同一个来源位置
+				
+	-->
+	<a href="http://www.baidu.com" target="myFrame">百度</a>
+	<a href="http://www.tianmao.com" target="myFrame">天猫</a>
+	<iframe name="myFrame" width="300px" height="300px" seamless="seamless"
+		sandbox="allow-same-origin"> </iframe>
+
+	<!-- embeb:添加插件支持，处理浏览器不支持的内容。h5增 -->
+	<embed src="http://static.youku.com/v1.0.0650/v/swf/player_yknpsv.swf"
+		type="application/x-shockwave-flush" width="560" height="349"
+		allowfullscreen="true" />
+
+	<!-- 使用object和param元素 -->
+	<object type="application/x-shockwave-flash"
+		data="http://static.youku.com/v1.0.0650/v/swf/player_yknpsv.swf"
+		width="100%" height="100%" id="movie_player">
+		<!-- 定义传递的参数 -->
+		<param name="allowFullScreen" value="true">
+		<param name="allowscriptaccess" value="always">
+		<param name="allowFullScreenInteractive" value="true">
+		<param name="wmode" value="direct">
+		<param name="bgcolor" value="#000000">
+		<param name="flashvars"
+			value="skincolor1=ffffff&amp;skincolor2=ffffff&amp;VideoIDS=XMTcxMDU0NTQ5Ng==&amp;ShowId=305119&amp;category=85&amp;Cp=authorized&amp;sv=true&amp;unCookie=0&amp;frame=undefined&amp;pvid=1armvf3in2lrq&amp;uepflag=0&amp;Tid=0&amp;isAutoPlay=true&amp;playmode=3&amp;show_ce=1&amp;winType=interior&amp;Fid=0&amp;Pt=0&amp;Ob=0&amp;plchid=&amp;embedid=AjQyNzYzNjM3NAJ2LnlvdWt1LmNvbQIvdl9zaG93L2lkX1hNVGN4TURVME5UUTVOZz09Lmh0bWw=&amp;ysuid=1472744222410up1&amp;vext=bc%3D%26pid%3Dundefined%26unCookie%3Dundefined%26frame%3Dundefined%26type%3D1%26fob%3D0%26fpo%3D0%26svt%3D1%26stg%3Dundefined%26cna%3DHjlPEFeUj1MCAbSd0VdGtEVa%26emb%3DAjQyNzYzNjM3NAJ2LnlvdWt1LmNvbQIvdl9zaG93L2lkX1hNVGN4TURVME5UUTVOZz09Lmh0bWw%3D%26dn%3D%E7%BD%91%E9%A1%B5%26hwc%3D1%26mtype%3Doth&amp;cna=HjlPEFeUj1MCAbSd0VdGtEVa&amp;pageStartTime=1472871239434">
+		<param name="movie"
+			value="http://static.youku.com/v1.0.0650/v/swf/player_yknpsv.swf">
+
+		<b>如果加载内容失败，会启用此地的备用内容</b>
+	</object>
+
+	<map name="myMaps">
+		<area alt="百度" href="http://www.baidu.com" shape="rect"
+			coords="3,5,68,62">
+		<area alt="天猫" href="http://www.tianmao.com" shape="rect"
+			coords="70,5,130,62">
+		<area alt="新浪" href="http://www.xinlang.com" shape="default">
+	</map>
+	<!-- 引入图片，并创建客户端响应图(无支持) -->
+	<object data="./ceUqkmMnRz4g.png" type="image/png" usemap="#myMaps"></object>
+	<!-- 可以把html嵌入到另一个文档中，类似 iframe。
+	使用name会创建浏览器上下文，可以结合a 和 form标签target属性使用 -->
+	<a href="http://www.baidu.com" target="frame">百度</a>
+	<a href="http://www.tianmao.com" target="frame">天猫</a>
+	<object type="text/html" name="frame" width="70px" height="100px"></object>
+
+
+	<!-- progress：用来表现某项任务逐渐完成的过程  ,H5
+	不设置max值时，默认为1，value取浮点数。0.3为30%
+	-->
+	<progress id="myprogress" value="10" max="100"></progress>
+	<progress id="myprogress" value="0.3"></progress>
+	<button type="button" value="90" id="temp">90%</button>
+	<script type="text/javascript">
+		var myprogress = document.getElementById("myprogress");
+		var b = document.getElementById("temp");
+		b.onclick = function(e) {
+			myprogress.value = e.target.value;
+		}
+	</script>
+
+	<!-- meter:显示某个范围内所有可能值中的一个 
+	min~max:可能值的所处范围，可以用浮点数表示，
+	low：在他之下的值都过低
+	high：在他之上的所有值过高
+	optimum：最佳值
+	-->
+	<meter value="20" min="10" max="100" low="40" optimum="60" high="80"
+		id="mymeter"></meter>
+		<button type="button" value="90" id="temp1">90%</button>
+	<script type="text/javascript">
+		var myprogress = document.getElementById("mymeter");
+		var b = document.getElementById("temp1");
+		b.onclick = function(e) {
+			myprogress.value = e.target.value;
+		}
+	</script>
+	<!-- 自定义属性，作用是为了避免与html未来版本增加的属性冲突 -->
+<input data-create="admin" />
+
+
+
+
+
+</body>
+</html>
